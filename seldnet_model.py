@@ -20,7 +20,7 @@ class MSELoss_ADPIT(object):
         """
         Auxiliary Duplicating Permutation Invariant Training (ADPIT) for 13 (=1+6+6) possible combinations
         Args:
-            output: [batch_size, frames, num_track*num_axis*num_class=3*3*13]
+            output: [batch_size, frames, num_track*num_axis*num_class=3*4*13]
             target: [batch_size, frames, num_track_dummy=6, num_axis=5, num_class=13]
         Return:
             loss: scalar
