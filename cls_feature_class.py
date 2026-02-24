@@ -1,22 +1,34 @@
 # Contains routines for labels creation, features extraction and normalization
 #
 
-from cls_vid_features import VideoFeatures
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:
+    Image = None
 import os
 import numpy as np
 import scipy.io.wavfile as wav
 from sklearn import preprocessing
 import joblib
-from IPython import embed
+try:
+    from IPython import embed
+except ImportError:
+    def embed(*args, **kwargs):
+        return None
 import matplotlib.pyplot as plot
-import librosa
+try:
+    import librosa
+except ImportError:
+    librosa = None
 plot.switch_backend('agg')
 import shutil
 import math
 import wave
 import contextlib
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None
 
 
 
@@ -65,6 +77,15 @@ class FeatureClass:
         self._dataset = params['dataset']
         self._eps = 1e-8
         self._nb_channels = 4
+
+        if librosa is None:
+            raise ImportError('librosa is required for feature extraction. Please install librosa.')
+
+        # L2 입력 제어(FOA 전용)
+        self._l2_enable = bool(params.get('l2_enable', False)) and self._dataset == 'foa'
+        self._l2_mode = params.get('l2_mode', 'foa_tf_softmask')
+        self._l2_mask_tau = float(params.get('l2_mask_tau', 0.05))
+        self._l2_mask_k = float(params.get('l2_mask_k', 10.0))
 
         self._multi_accdoa = params['multi_accdoa']
         self._use_salsalite = params['use_salsalite']
@@ -133,6 +154,38 @@ class FeatureClass:
             spectra.append(stft_ch[:, :_nb_frames])
         return np.array(spectra).T
 
+    def _get_feature_variant_suffix(self):
+        if self._l2_enable and self._dataset == 'foa' and self._l2_mode == 'foa_tf_softmask':
+            return '_l2foa'
+        return ''
+
+    def _apply_foa_tf_softmask(self, linear_spectra):
+        if linear_spectra.shape[-1] < 4:
+            return linear_spectra
+
+        W = linear_spectra[:, :, 0]
+        xyz = linear_spectra[:, :, 1:4]
+
+        # 의사 강도 벡터와 정규화 방향 벡터 d(t,f) 계산
+        intensity = np.real(np.conj(W)[:, :, np.newaxis] * xyz)
+        norm_intensity = np.linalg.norm(intensity, axis=-1, keepdims=True)
+        d_vec = intensity / (norm_intensity + self._eps)
+
+        energy = np.abs(W) ** 2 + (np.abs(xyz) ** 2).sum(axis=-1) / 3.0 + self._eps
+        weighted_dir = (d_vec * energy[:, :, np.newaxis]).reshape(-1, 3).sum(axis=0)
+        u_norm = np.linalg.norm(weighted_dir)
+        if u_norm < self._eps:
+            return linear_spectra
+
+        u_vec = weighted_dir / (u_norm + self._eps)
+        dot = np.sum(d_vec * u_vec[np.newaxis, np.newaxis, :], axis=-1)
+
+        logits = self._l2_mask_k * (dot - self._l2_mask_tau)
+        logits = np.clip(logits, -30.0, 30.0)
+        mask = 1.0 / (1.0 + np.exp(-logits))
+
+        return linear_spectra * mask[:, :, np.newaxis]
+
     def _get_mel_spectrogram(self, linear_spectra):
         mel_feat = np.zeros((linear_spectra.shape[0], self._nb_mel_bins, linear_spectra.shape[-1]))
         for ch_cnt in range(linear_spectra.shape[-1]):
@@ -195,6 +248,11 @@ class FeatureClass:
         self._filewise_frames[os.path.basename(audio_filename).split('.')[0]] = [nb_feat_frames, nb_label_frames]
 
         audio_spec = self._spectrogram(audio_in, nb_feat_frames)
+        if self._l2_enable and self._dataset == 'foa':
+            if self._l2_mode == 'foa_tf_softmask':
+                audio_spec = self._apply_foa_tf_softmask(audio_spec)
+            else:
+                raise ValueError('Unsupported L2 mode: {}'.format(self._l2_mode))
         return audio_spec
 
     # OUTPUT LABELS
@@ -472,6 +530,9 @@ class FeatureClass:
     # ------------------------------- EXTRACT VISUAL FEATURES AND PREPROCESS IT -------------------------------
     @staticmethod
     def _read_vid_frames(vid_filename):
+        if cv2 is None or Image is None:
+            raise ImportError('opencv-python and Pillow are required for visual feature extraction.')
+
         cap = cv2.VideoCapture(vid_filename)
         pil_frames = []
         frame_cnt = 0
@@ -491,6 +552,8 @@ class FeatureClass:
         return pil_frames
 
     def extract_file_vid_feature(self, _arg_in):
+        from cls_vid_features import VideoFeatures
+
         _file_cnt, _mp4_path, _vid_feat_path = _arg_in
         vid_feat = None
 
@@ -702,16 +765,14 @@ class FeatureClass:
     # ------------------------------- Misc public functions -------------------------------
 
     def get_normalized_feat_dir(self):
-        return os.path.join(
-            self._feat_label_dir,
-            '{}_norm'.format('{}_salsa'.format(self._dataset_combination) if (self._dataset=='mic' and self._use_salsalite) else self._dataset_combination)
-        )
+        base_name = '{}_salsa'.format(self._dataset_combination) if (self._dataset == 'mic' and self._use_salsalite) else self._dataset_combination
+        base_name = '{}{}'.format(base_name, self._get_feature_variant_suffix())
+        return os.path.join(self._feat_label_dir, '{}_norm'.format(base_name))
 
     def get_unnormalized_feat_dir(self):
-        return os.path.join(
-            self._feat_label_dir,
-            '{}'.format('{}_salsa'.format(self._dataset_combination) if (self._dataset=='mic' and self._use_salsalite) else self._dataset_combination)
-        )
+        base_name = '{}_salsa'.format(self._dataset_combination) if (self._dataset == 'mic' and self._use_salsalite) else self._dataset_combination
+        base_name = '{}{}'.format(base_name, self._get_feature_variant_suffix())
+        return os.path.join(self._feat_label_dir, '{}'.format(base_name))
 
     def get_label_dir(self):
         if self._is_eval:
@@ -725,7 +786,7 @@ class FeatureClass:
     def get_normalized_wts_file(self):
         return os.path.join(
             self._feat_label_dir,
-            '{}_wts'.format(self._dataset)
+            '{}{}_wts'.format(self._dataset, self._get_feature_variant_suffix())
         )
 
     def get_vid_feat_dir(self):

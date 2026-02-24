@@ -5,7 +5,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
-from IPython import embed
+try:
+    from IPython import embed
+except ImportError:
+    def embed(*args, **kwargs):
+        return None
 
 
 class MSELoss_ADPIT(object):

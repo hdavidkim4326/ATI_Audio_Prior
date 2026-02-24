@@ -90,6 +90,67 @@ python3 train_seldnet.py <task-id> <job-id>
 python3 train_seldnet.py 3
 ```
 
+
+
+## 개발 규칙
+
+- 이 저장소에서 **신규/수정 코드의 모든 주석(# ...)과 docstring은 한국어로 작성**합니다.
+
+## L2/L3/ATI Extensions (FOA)
+
+The baseline workflow remains unchanged. Additional task-ids and scripts are added for FOA experiments:
+
+- `task-id 3`: baseline FOA + Multi-ACCDOA (large model, no L2)
+- `task-id 31`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF softmask
+- `task-id 41`: small L3 FOA + Multi-ACCDOA (no L2)
+- `task-id 42`: small L3 FOA + Multi-ACCDOA + L2 FOA TF softmask
+
+L2 is controlled from `parameters.py` via:
+- `l2_enable`
+- `l2_mode='foa_tf_softmask'`
+- `l2_mask_tau`
+- `l2_mask_k`
+
+When L2 is enabled, features are extracted into isolated directories with suffix `_l2foa`, so baseline features are not overwritten.
+
+### Baseline (unchanged)
+
+```bash
+python batch_feature_extraction.py 3
+python train_seldnet.py 3 1
+```
+
+### L2 feature extraction + training
+
+```bash
+python batch_feature_extraction.py 31
+python train_seldnet.py 31 1
+```
+
+### L3 small model training
+
+```bash
+python batch_feature_extraction.py 41
+python train_seldnet.py 41 1
+```
+
+L3 small with L2:
+
+```bash
+python batch_feature_extraction.py 42
+python train_seldnet.py 42 1
+```
+
+### ATI two-stage inference (new)
+
+Run conditional escalation from L3 to L4 while writing the same DCASE CSV format:
+
+```bash
+python ati_infer.py --task-id-l3 42 --job-id-l3 1 --task-id-l4 3 --job-id-l4 1 --split-idx 0 --uncertainty-threshold 0.08
+```
+
+Then evaluate with the existing scorer (unchanged), by setting `pred_output_format_files` to ATI output folder in `cls_compute_seld_results.py`, or by calling `ComputeSELDResults` directly.
+
 ## Results on development dataset
 
 As the [SELD evaluation metric](https://www.aane.in/research/computational-audio-scene-analysis-casa/sound-event-localization-detection-and-tracking#h.ragsbsp7ujs) we employ the joint localization and detection metrics proposed in [1], with extensions from [2, 6] to support multi-instance scoring of the same class and distance estimation.
