@@ -1,0 +1,739 @@
+SET: 3
+FOA + multi ACCDOA
+
+	quick_test: False
+	finetune_mode: True
+	pretrained_model_weights: 3_1_dev_split0_multiaccdoa_foa_model.h5
+	dataset_dir: ../DCASE2024_SELD_dataset/
+	feat_label_dir: ../DCASE2024_SELD_dataset/seld_feat_label/
+	model_dir: models_audio
+	dcase_output_dir: results_audio
+	mode: dev
+	dataset: foa
+	fs: 24000
+	hop_len_s: 0.02
+	label_hop_len_s: 0.1
+	max_audio_len_s: 60
+	nb_mel_bins: 64
+	use_salsalite: False
+	fmin_doa_salsalite: 50
+	fmax_doa_salsalite: 2000
+	fmax_spectra_salsalite: 9000
+	l2_enable: False
+	l2_mode: foa_tf_softmask
+	l2_mask_tau: 0.05
+	l2_mask_k: 10.0
+	modality: audio
+	multi_accdoa: True
+	thresh_unify: 15
+	label_sequence_length: 50
+	batch_size: 128
+	dropout_rate: 0.05
+	nb_cnn2d_filt: 64
+	f_pool_size: [4, 4, 2]
+	nb_heads: 8
+	nb_self_attn_layers: 2
+	nb_transformer_layers: 2
+	nb_rnn_layers: 2
+	rnn_size: 128
+	nb_fnn_layers: 1
+	fnn_size: 128
+	nb_epochs: 250
+	lr: 0.001
+	average: macro
+	segment_based_metrics: False
+	evaluate_distance: True
+	lad_doa_thresh: 20
+	lad_dist_thresh: inf
+	lad_reldist_thresh: 1.0
+	feature_sequence_length: 250
+	t_pool_size: [5, 1, 1]
+	patience: 250
+	unique_classes: 13
+Extracting spectrogram:
+		aud_dir ../DCASE2024_SELD_dataset/foa_dev
+		desc_dir ../DCASE2024_SELD_dataset/metadata_dev
+		feat_dir ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev
+0: fold3_room6_mix007.wav, (10729, 448)
+1: fold3_room6_mix004.wav, (14475, 448)
+2: fold3_room6_mix006.wav, (5072, 448)
+3: fold3_room13_mix008.wav, (11792, 448)
+4: fold3_room4_mix008.wav, (8319, 448)
+5: fold3_room9_mix008.wav, (10693, 448)
+6: fold3_room9_mix006.wav, (7436, 448)
+7: fold3_room13_mix009.wav, (19430, 448)
+8: fold3_room13_mix002.wav, (14833, 448)
+9: fold3_room4_mix001.wav, (6454, 448)
+10: fold3_room12_mix002.wav, (11235, 448)
+11: fold3_room4_mix004.wav, (7986, 448)
+12: fold3_room4_mix007.wav, (11213, 448)
+13: fold3_room9_mix004.wav, (7324, 448)
+14: fold3_room7_mix004.wav, (16420, 448)
+15: fold3_room7_mix001.wav, (7729, 448)
+16: fold3_room13_mix007.wav, (12216, 448)
+17: fold3_room12_mix006.wav, (7751, 448)
+18: fold3_room9_mix002.wav, (8612, 448)
+19: fold3_room12_mix003.wav, (17739, 448)
+20: fold3_room9_mix007.wav, (8019, 448)
+21: fold3_room14_mix001.wav, (5325, 448)
+22: fold3_room13_mix003.wav, (10201, 448)
+23: fold3_room12_mix004.wav, (16757, 448)
+24: fold3_room12_mix008.wav, (12255, 448)
+25: fold3_room12_mix001.wav, (12664, 448)
+26: fold3_room13_mix001.wav, (13155, 448)
+27: fold3_room7_mix002.wav, (16271, 448)
+28: fold3_room13_mix006.wav, (15390, 448)
+29: fold3_room13_mix005.wav, (2670, 448)
+30: fold3_room14_mix003.wav, (2043, 448)
+31: fold3_room12_mix005.wav, (4742, 448)
+32: fold3_room7_mix005.wav, (13021, 448)
+33: fold3_room7_mix003.wav, (10917, 448)
+34: fold3_room6_mix005.wav, (13699, 448)
+35: fold3_room7_mix006.wav, (16830, 448)
+36: fold3_room14_mix002.wav, (3873, 448)
+37: fold3_room4_mix006.wav, (9089, 448)
+38: fold3_room9_mix005.wav, (11491, 448)
+39: fold3_room6_mix002.wav, (12889, 448)
+40: fold3_room6_mix003.wav, (16096, 448)
+41: fold3_room6_mix001.wav, (10990, 448)
+42: fold3_room4_mix005.wav, (5472, 448)
+43: fold3_room12_mix007.wav, (12437, 448)
+44: fold3_room9_mix003.wav, (8226, 448)
+45: fold3_room14_mix004.wav, (3282, 448)
+46: fold3_room9_mix001.wav, (9037, 448)
+47: fold3_room13_mix004.wav, (7778, 448)
+48: fold3_room12_mix009.wav, (5189, 448)
+49: fold3_room12_mix010.wav, (9639, 448)
+0: fold4_room16_mix001.wav, (10990, 448)
+1: fold4_room2_mix006.wav, (17453, 448)
+2: fold4_room2_mix002.wav, (13649, 448)
+3: fold4_room8_mix002.wav, (9392, 448)
+4: fold4_room8_mix006.wav, (11252, 448)
+5: fold4_room15_mix005.wav, (6347, 448)
+6: fold4_room16_mix012.wav, (7057, 448)
+7: fold4_room2_mix004.wav, (8516, 448)
+8: fold4_room16_mix003.wav, (6557, 448)
+9: fold4_room2_mix005.wav, (9180, 448)
+10: fold4_room15_mix009.wav, (11186, 448)
+11: fold4_room10_mix005.wav, (5801, 448)
+12: fold4_room16_mix008.wav, (2276, 448)
+13: fold4_room15_mix006.wav, (14937, 448)
+14: fold4_room15_mix003.wav, (13630, 448)
+15: fold4_room15_mix002.wav, (9025, 448)
+16: fold4_room15_mix008.wav, (7624, 448)
+17: fold4_room2_mix001.wav, (7464, 448)
+18: fold4_room16_mix006.wav, (8797, 448)
+19: fold4_room2_mix003.wav, (12670, 448)
+20: fold4_room16_mix002.wav, (6336, 448)
+21: fold4_room15_mix007.wav, (11535, 448)
+22: fold4_room8_mix001.wav, (10407, 448)
+23: fold4_room15_mix004.wav, (14333, 448)
+24: fold4_room16_mix010.wav, (6595, 448)
+25: fold4_room10_mix007.wav, (7216, 448)
+26: fold4_room8_mix005.wav, (8763, 448)
+27: fold4_room10_mix001.wav, (6893, 448)
+28: fold4_room16_mix013.wav, (6040, 448)
+29: fold4_room8_mix004.wav, (5314, 448)
+30: fold4_room16_mix014.wav, (4800, 448)
+31: fold4_room10_mix003.wav, (7012, 448)
+32: fold4_room16_mix005.wav, (2389, 448)
+33: fold4_room10_mix008.wav, (7348, 448)
+34: fold4_room8_mix008.wav, (8362, 448)
+35: fold4_room10_mix004.wav, (7403, 448)
+36: fold4_room8_mix003.wav, (10675, 448)
+37: fold4_room8_mix007.wav, (6680, 448)
+38: fold4_room15_mix001.wav, (8174, 448)
+39: fold4_room16_mix004.wav, (7094, 448)
+40: fold4_room15_mix010.wav, (28461, 448)
+41: fold4_room8_mix009.wav, (17957, 448)
+42: fold4_room10_mix009.wav, (8100, 448)
+43: fold4_room16_mix011.wav, (8769, 448)
+44: fold4_room10_mix006.wav, (8524, 448)
+45: fold4_room16_mix007.wav, (10226, 448)
+46: fold4_room16_mix009.wav, (4203, 448)
+47: fold4_room10_mix002.wav, (7245, 448)
+0: fold4_room23_mix004.wav, (5110, 448)
+1: fold4_room23_mix005.wav, (3715, 448)
+2: fold4_room23_mix007.wav, (6300, 448)
+3: fold4_room23_mix012.wav, (4750, 448)
+4: fold4_room23_mix001.wav, (3035, 448)
+5: fold4_room24_mix003.wav, (4865, 448)
+6: fold4_room24_mix016.wav, (3990, 448)
+7: fold4_room23_mix006.wav, (5235, 448)
+8: fold4_room23_mix008.wav, (2650, 448)
+9: fold4_room23_mix009.wav, (3250, 448)
+10: fold4_room24_mix002.wav, (5270, 448)
+11: fold4_room24_mix008.wav, (4850, 448)
+12: fold4_room23_mix002.wav, (2235, 448)
+13: fold4_room24_mix005.wav, (6865, 448)
+14: fold4_room24_mix014.wav, (6280, 448)
+15: fold4_room24_mix001.wav, (8945, 448)
+16: fold4_room23_mix011.wav, (5750, 448)
+17: fold4_room24_mix013.wav, (2860, 448)
+18: fold4_room24_mix015.wav, (3640, 448)
+19: fold4_room24_mix004.wav, (4755, 448)
+20: fold4_room24_mix012.wav, (7840, 448)
+21: fold4_room23_mix014.wav, (6000, 448)
+22: fold4_room23_mix003.wav, (2100, 448)
+23: fold4_room24_mix009.wav, (3875, 448)
+24: fold4_room23_mix013.wav, (3000, 448)
+25: fold4_room24_mix011.wav, (3165, 448)
+26: fold4_room23_mix010.wav, (3550, 448)
+27: fold4_room24_mix006.wav, (7050, 448)
+28: fold4_room24_mix010.wav, (3635, 448)
+29: fold4_room24_mix007.wav, (4450, 448)
+0: fold3_room22_mix005.wav, (6675, 448)
+1: fold3_room21_mix026.wav, (12995, 448)
+2: fold3_room21_mix012.wav, (7740, 448)
+3: fold3_room21_mix014.wav, (3400, 448)
+4: fold3_room21_mix019.wav, (2450, 448)
+5: fold3_room21_mix005.wav, (3400, 448)
+6: fold3_room21_mix029.wav, (10305, 448)
+7: fold3_room21_mix011.wav, (2930, 448)
+8: fold3_room21_mix028.wav, (5000, 448)
+9: fold3_room21_mix027.wav, (5565, 448)
+10: fold3_room22_mix002.wav, (5975, 448)
+11: fold3_room22_mix010.wav, (11250, 448)
+12: fold3_room21_mix010.wav, (4725, 448)
+13: fold3_room21_mix002.wav, (7000, 448)
+14: fold3_room21_mix017.wav, (6600, 448)
+15: fold3_room22_mix011.wav, (9250, 448)
+16: fold3_room21_mix004.wav, (1625, 448)
+17: fold3_room22_mix003.wav, (3475, 448)
+18: fold3_room21_mix013.wav, (3250, 448)
+19: fold3_room21_mix024.wav, (4200, 448)
+20: fold3_room22_mix004.wav, (5240, 448)
+21: fold3_room21_mix016.wav, (3760, 448)
+22: fold3_room21_mix003.wav, (5900, 448)
+23: fold3_room21_mix007.wav, (3840, 448)
+24: fold3_room22_mix008.wav, (4750, 448)
+25: fold3_room21_mix022.wav, (8750, 448)
+26: fold3_room21_mix015.wav, (5685, 448)
+27: fold3_room21_mix023.wav, (5475, 448)
+28: fold3_room22_mix006.wav, (3000, 448)
+29: fold3_room22_mix007.wav, (6305, 448)
+30: fold3_room21_mix020.wav, (6380, 448)
+31: fold3_room21_mix006.wav, (1895, 448)
+32: fold3_room21_mix018.wav, (6500, 448)
+33: fold3_room21_mix009.wav, (5510, 448)
+34: fold3_room21_mix021.wav, (6500, 448)
+35: fold3_room22_mix001.wav, (3750, 448)
+36: fold3_room22_mix009.wav, (4270, 448)
+37: fold3_room21_mix008.wav, (7775, 448)
+38: fold3_room21_mix025.wav, (12150, 448)
+39: fold3_room21_mix001.wav, (4470, 448)
+327.84846544265747
+Estimating weights for normalizing feature files:
+		feat_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev
+0: fold4_room10_mix006.npy
+1: fold4_room8_mix002.npy
+2: fold3_room9_mix006.npy
+3: fold4_room16_mix014.npy
+4: fold4_room24_mix011.npy
+5: fold4_room23_mix010.npy
+6: fold4_room23_mix012.npy
+7: fold4_room10_mix002.npy
+8: fold3_room4_mix006.npy
+9: fold4_room8_mix009.npy
+10: fold3_room21_mix012.npy
+11: fold4_room15_mix010.npy
+12: fold3_room6_mix001.npy
+13: fold4_room16_mix013.npy
+14: fold3_room13_mix006.npy
+15: fold4_room24_mix009.npy
+16: fold3_room9_mix008.npy
+17: fold3_room13_mix001.npy
+18: fold3_room7_mix006.npy
+19: fold3_room21_mix015.npy
+20: fold4_room15_mix003.npy
+21: fold3_room21_mix007.npy
+22: fold4_room15_mix006.npy
+23: fold4_room24_mix006.npy
+24: fold3_room22_mix011.npy
+25: fold4_room8_mix007.npy
+26: fold4_room16_mix008.npy
+27: fold4_room24_mix005.npy
+28: fold4_room23_mix013.npy
+29: fold4_room23_mix005.npy
+30: fold4_room16_mix005.npy
+31: fold4_room23_mix004.npy
+32: fold3_room21_mix026.npy
+33: fold4_room2_mix005.npy
+34: fold3_room12_mix001.npy
+35: fold3_room21_mix004.npy
+36: fold4_room2_mix004.npy
+37: fold3_room7_mix003.npy
+38: fold4_room24_mix010.npy
+39: fold3_room9_mix007.npy
+40: fold4_room23_mix002.npy
+41: fold3_room21_mix006.npy
+42: fold3_room22_mix008.npy
+43: fold3_room6_mix003.npy
+44: fold4_room24_mix008.npy
+45: fold4_room16_mix004.npy
+46: fold3_room21_mix014.npy
+47: fold4_room10_mix001.npy
+48: fold3_room7_mix004.npy
+49: fold4_room10_mix009.npy
+50: fold3_room22_mix007.npy
+51: fold3_room14_mix001.npy
+52: fold4_room10_mix007.npy
+53: fold4_room15_mix007.npy
+54: fold4_room16_mix012.npy
+55: fold3_room13_mix008.npy
+56: fold3_room22_mix004.npy
+57: fold3_room21_mix002.npy
+58: fold3_room21_mix005.npy
+59: fold4_room8_mix001.npy
+60: fold4_room24_mix013.npy
+61: fold3_room21_mix029.npy
+62: fold3_room12_mix010.npy
+63: fold3_room22_mix003.npy
+64: fold4_room24_mix003.npy
+65: fold3_room6_mix002.npy
+66: fold4_room23_mix009.npy
+67: fold4_room24_mix012.npy
+68: fold4_room23_mix003.npy
+69: fold3_room12_mix008.npy
+70: fold4_room23_mix014.npy
+71: fold3_room13_mix002.npy
+72: fold3_room12_mix003.npy
+73: fold4_room16_mix010.npy
+74: fold3_room13_mix004.npy
+75: fold4_room15_mix001.npy
+76: fold4_room15_mix005.npy
+77: fold4_room16_mix011.npy
+78: fold3_room12_mix006.npy
+79: fold3_room21_mix008.npy
+80: fold3_room21_mix024.npy
+81: fold4_room8_mix008.npy
+82: fold3_room21_mix009.npy
+83: fold3_room22_mix002.npy
+84: fold3_room9_mix005.npy
+85: fold4_room10_mix004.npy
+86: fold3_room6_mix007.npy
+87: fold3_room9_mix001.npy
+88: fold4_room16_mix006.npy
+89: fold3_room6_mix004.npy
+90: fold4_room24_mix016.npy
+91: fold3_room7_mix005.npy
+92: fold4_room15_mix009.npy
+93: fold3_room9_mix003.npy
+94: fold3_room9_mix004.npy
+95: fold4_room23_mix011.npy
+96: fold4_room24_mix004.npy
+97: fold4_room16_mix007.npy
+98: fold3_room6_mix005.npy
+99: fold3_room12_mix005.npy
+100: fold3_room21_mix020.npy
+101: fold4_room8_mix004.npy
+102: fold3_room12_mix007.npy
+103: fold4_room2_mix001.npy
+104: fold3_room7_mix001.npy
+105: fold3_room14_mix003.npy
+106: fold3_room13_mix005.npy
+107: fold3_room21_mix021.npy
+108: fold3_room21_mix011.npy
+109: fold3_room13_mix007.npy
+110: fold4_room2_mix006.npy
+111: fold4_room16_mix003.npy
+112: fold3_room6_mix006.npy
+113: fold3_room13_mix003.npy
+114: fold4_room2_mix003.npy
+115: fold3_room4_mix004.npy
+116: fold3_room21_mix003.npy
+117: fold4_room23_mix008.npy
+118: fold3_room21_mix010.npy
+119: fold4_room16_mix009.npy
+120: fold3_room4_mix007.npy
+121: fold4_room24_mix007.npy
+122: fold3_room21_mix019.npy
+123: fold3_room21_mix027.npy
+124: fold4_room8_mix005.npy
+125: fold4_room24_mix002.npy
+126: fold3_room13_mix009.npy
+127: fold3_room21_mix022.npy
+128: fold3_room12_mix009.npy
+129: fold4_room15_mix008.npy
+130: fold4_room15_mix004.npy
+131: fold4_room10_mix008.npy
+132: fold4_room24_mix001.npy
+133: fold4_room2_mix002.npy
+134: fold4_room23_mix007.npy
+135: fold3_room21_mix025.npy
+136: fold4_room23_mix001.npy
+137: fold3_room21_mix017.npy
+138: fold4_room16_mix001.npy
+139: fold3_room4_mix008.npy
+140: fold3_room4_mix005.npy
+141: fold3_room22_mix001.npy
+142: fold3_room21_mix013.npy
+143: fold3_room9_mix002.npy
+144: fold3_room21_mix023.npy
+145: fold4_room15_mix002.npy
+146: fold3_room21_mix016.npy
+147: fold3_room22_mix010.npy
+148: fold4_room16_mix002.npy
+149: fold3_room14_mix004.npy
+150: fold3_room7_mix002.npy
+151: fold4_room8_mix006.npy
+152: fold4_room24_mix014.npy
+153: fold3_room14_mix002.npy
+154: fold3_room12_mix004.npy
+155: fold3_room21_mix028.npy
+156: fold3_room21_mix018.npy
+157: fold4_room10_mix005.npy
+158: fold3_room22_mix005.npy
+159: fold3_room21_mix001.npy
+160: fold4_room24_mix015.npy
+161: fold3_room4_mix001.npy
+162: fold4_room10_mix003.npy
+163: fold4_room23_mix006.npy
+164: fold3_room22_mix009.npy
+165: fold3_room22_mix006.npy
+166: fold3_room12_mix002.npy
+167: fold4_room8_mix003.npy
+Normalized_features_wts_file: ../DCASE2024_SELD_dataset/seld_feat_label/foa_wts. Saved.
+Normalizing feature files:
+		feat_dir_norm ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_norm
+0: fold4_room10_mix006.npy
+1: fold4_room8_mix002.npy
+2: fold3_room9_mix006.npy
+3: fold4_room16_mix014.npy
+4: fold4_room24_mix011.npy
+5: fold4_room23_mix010.npy
+6: fold4_room23_mix012.npy
+7: fold4_room10_mix002.npy
+8: fold3_room4_mix006.npy
+9: fold4_room8_mix009.npy
+10: fold3_room21_mix012.npy
+11: fold4_room15_mix010.npy
+12: fold3_room6_mix001.npy
+13: fold4_room16_mix013.npy
+14: fold3_room13_mix006.npy
+15: fold4_room24_mix009.npy
+16: fold3_room9_mix008.npy
+17: fold3_room13_mix001.npy
+18: fold3_room7_mix006.npy
+19: fold3_room21_mix015.npy
+20: fold4_room15_mix003.npy
+21: fold3_room21_mix007.npy
+22: fold4_room15_mix006.npy
+23: fold4_room24_mix006.npy
+24: fold3_room22_mix011.npy
+25: fold4_room8_mix007.npy
+26: fold4_room16_mix008.npy
+27: fold4_room24_mix005.npy
+28: fold4_room23_mix013.npy
+29: fold4_room23_mix005.npy
+30: fold4_room16_mix005.npy
+31: fold4_room23_mix004.npy
+32: fold3_room21_mix026.npy
+33: fold4_room2_mix005.npy
+34: fold3_room12_mix001.npy
+35: fold3_room21_mix004.npy
+36: fold4_room2_mix004.npy
+37: fold3_room7_mix003.npy
+38: fold4_room24_mix010.npy
+39: fold3_room9_mix007.npy
+40: fold4_room23_mix002.npy
+41: fold3_room21_mix006.npy
+42: fold3_room22_mix008.npy
+43: fold3_room6_mix003.npy
+44: fold4_room24_mix008.npy
+45: fold4_room16_mix004.npy
+46: fold3_room21_mix014.npy
+47: fold4_room10_mix001.npy
+48: fold3_room7_mix004.npy
+49: fold4_room10_mix009.npy
+50: fold3_room22_mix007.npy
+51: fold3_room14_mix001.npy
+52: fold4_room10_mix007.npy
+53: fold4_room15_mix007.npy
+54: fold4_room16_mix012.npy
+55: fold3_room13_mix008.npy
+56: fold3_room22_mix004.npy
+57: fold3_room21_mix002.npy
+58: fold3_room21_mix005.npy
+59: fold4_room8_mix001.npy
+60: fold4_room24_mix013.npy
+61: fold3_room21_mix029.npy
+62: fold3_room12_mix010.npy
+63: fold3_room22_mix003.npy
+64: fold4_room24_mix003.npy
+65: fold3_room6_mix002.npy
+66: fold4_room23_mix009.npy
+67: fold4_room24_mix012.npy
+68: fold4_room23_mix003.npy
+69: fold3_room12_mix008.npy
+70: fold4_room23_mix014.npy
+71: fold3_room13_mix002.npy
+72: fold3_room12_mix003.npy
+73: fold4_room16_mix010.npy
+74: fold3_room13_mix004.npy
+75: fold4_room15_mix001.npy
+76: fold4_room15_mix005.npy
+77: fold4_room16_mix011.npy
+78: fold3_room12_mix006.npy
+79: fold3_room21_mix008.npy
+80: fold3_room21_mix024.npy
+81: fold4_room8_mix008.npy
+82: fold3_room21_mix009.npy
+83: fold3_room22_mix002.npy
+84: fold3_room9_mix005.npy
+85: fold4_room10_mix004.npy
+86: fold3_room6_mix007.npy
+87: fold3_room9_mix001.npy
+88: fold4_room16_mix006.npy
+89: fold3_room6_mix004.npy
+90: fold4_room24_mix016.npy
+91: fold3_room7_mix005.npy
+92: fold4_room15_mix009.npy
+93: fold3_room9_mix003.npy
+94: fold3_room9_mix004.npy
+95: fold4_room23_mix011.npy
+96: fold4_room24_mix004.npy
+97: fold4_room16_mix007.npy
+98: fold3_room6_mix005.npy
+99: fold3_room12_mix005.npy
+100: fold3_room21_mix020.npy
+101: fold4_room8_mix004.npy
+102: fold3_room12_mix007.npy
+103: fold4_room2_mix001.npy
+104: fold3_room7_mix001.npy
+105: fold3_room14_mix003.npy
+106: fold3_room13_mix005.npy
+107: fold3_room21_mix021.npy
+108: fold3_room21_mix011.npy
+109: fold3_room13_mix007.npy
+110: fold4_room2_mix006.npy
+111: fold4_room16_mix003.npy
+112: fold3_room6_mix006.npy
+113: fold3_room13_mix003.npy
+114: fold4_room2_mix003.npy
+115: fold3_room4_mix004.npy
+116: fold3_room21_mix003.npy
+117: fold4_room23_mix008.npy
+118: fold3_room21_mix010.npy
+119: fold4_room16_mix009.npy
+120: fold3_room4_mix007.npy
+121: fold4_room24_mix007.npy
+122: fold3_room21_mix019.npy
+123: fold3_room21_mix027.npy
+124: fold4_room8_mix005.npy
+125: fold4_room24_mix002.npy
+126: fold3_room13_mix009.npy
+127: fold3_room21_mix022.npy
+128: fold3_room12_mix009.npy
+129: fold4_room15_mix008.npy
+130: fold4_room15_mix004.npy
+131: fold4_room10_mix008.npy
+132: fold4_room24_mix001.npy
+133: fold4_room2_mix002.npy
+134: fold4_room23_mix007.npy
+135: fold3_room21_mix025.npy
+136: fold4_room23_mix001.npy
+137: fold3_room21_mix017.npy
+138: fold4_room16_mix001.npy
+139: fold3_room4_mix008.npy
+140: fold3_room4_mix005.npy
+141: fold3_room22_mix001.npy
+142: fold3_room21_mix013.npy
+143: fold3_room9_mix002.npy
+144: fold3_room21_mix023.npy
+145: fold4_room15_mix002.npy
+146: fold3_room21_mix016.npy
+147: fold3_room22_mix010.npy
+148: fold4_room16_mix002.npy
+149: fold3_room14_mix004.npy
+150: fold3_room7_mix002.npy
+151: fold4_room8_mix006.npy
+152: fold4_room24_mix014.npy
+153: fold3_room14_mix002.npy
+154: fold3_room12_mix004.npy
+155: fold3_room21_mix028.npy
+156: fold3_room21_mix018.npy
+157: fold4_room10_mix005.npy
+158: fold3_room22_mix005.npy
+159: fold3_room21_mix001.npy
+160: fold4_room24_mix015.npy
+161: fold3_room4_mix001.npy
+162: fold4_room10_mix003.npy
+163: fold4_room23_mix006.npy
+164: fold3_room22_mix009.npy
+165: fold3_room22_mix006.npy
+166: fold3_room12_mix002.npy
+167: fold4_room8_mix003.npy
+normalized files written to ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_norm
+Extracting labels:
+		aud_dir ../DCASE2024_SELD_dataset/foa_dev
+		desc_dir ../DCASE2024_SELD_dataset/metadata_dev
+		label_dir ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_adpit_label
+0: fold3_room13_mix006.csv, (3078, 6, 5, 13)
+1: fold3_room14_mix003.csv, (408, 6, 5, 13)
+2: fold3_room4_mix001.csv, (1290, 6, 5, 13)
+3: fold3_room7_mix002.csv, (3254, 6, 5, 13)
+4: fold3_room7_mix004.csv, (3284, 6, 5, 13)
+5: fold3_room6_mix005.csv, (2739, 6, 5, 13)
+6: fold3_room12_mix010.csv, (1927, 6, 5, 13)
+7: fold3_room13_mix003.csv, (2040, 6, 5, 13)
+8: fold3_room12_mix005.csv, (948, 6, 5, 13)
+9: fold3_room4_mix008.csv, (1663, 6, 5, 13)
+10: fold3_room14_mix002.csv, (774, 6, 5, 13)
+11: fold3_room9_mix005.csv, (2298, 6, 5, 13)
+12: fold3_room12_mix003.csv, (3547, 6, 5, 13)
+13: fold3_room13_mix008.csv, (2358, 6, 5, 13)
+14: fold3_room13_mix004.csv, (1555, 6, 5, 13)
+15: fold3_room4_mix007.csv, (2242, 6, 5, 13)
+16: fold3_room12_mix006.csv, (1550, 6, 5, 13)
+17: fold3_room12_mix002.csv, (2247, 6, 5, 13)
+18: fold3_room13_mix007.csv, (2443, 6, 5, 13)
+19: fold3_room6_mix003.csv, (3219, 6, 5, 13)
+20: fold3_room12_mix007.csv, (2487, 6, 5, 13)
+21: fold3_room9_mix003.csv, (1645, 6, 5, 13)
+22: fold3_room6_mix001.csv, (2198, 6, 5, 13)
+23: fold3_room9_mix008.csv, (2138, 6, 5, 13)
+24: fold3_room6_mix004.csv, (2895, 6, 5, 13)
+25: fold3_room6_mix002.csv, (2577, 6, 5, 13)
+26: fold3_room9_mix006.csv, (1487, 6, 5, 13)
+27: fold3_room6_mix006.csv, (1014, 6, 5, 13)
+28: fold3_room13_mix001.csv, (2631, 6, 5, 13)
+29: fold3_room14_mix004.csv, (656, 6, 5, 13)
+30: fold3_room7_mix001.csv, (1545, 6, 5, 13)
+31: fold3_room4_mix004.csv, (1597, 6, 5, 13)
+32: fold3_room12_mix004.csv, (3351, 6, 5, 13)
+33: fold3_room7_mix003.csv, (2183, 6, 5, 13)
+34: fold3_room12_mix001.csv, (2532, 6, 5, 13)
+35: fold3_room4_mix006.csv, (1817, 6, 5, 13)
+36: fold3_room13_mix005.csv, (534, 6, 5, 13)
+37: fold3_room12_mix008.csv, (2451, 6, 5, 13)
+38: fold3_room13_mix002.csv, (2966, 6, 5, 13)
+39: fold3_room9_mix004.csv, (1464, 6, 5, 13)
+40: fold3_room9_mix002.csv, (1722, 6, 5, 13)
+41: fold3_room9_mix001.csv, (1807, 6, 5, 13)
+42: fold3_room7_mix005.csv, (2604, 6, 5, 13)
+43: fold3_room13_mix009.csv, (3886, 6, 5, 13)
+44: fold3_room14_mix001.csv, (1065, 6, 5, 13)
+45: fold3_room6_mix007.csv, (2145, 6, 5, 13)
+46: fold3_room9_mix007.csv, (1603, 6, 5, 13)
+47: fold3_room7_mix006.csv, (3366, 6, 5, 13)
+48: fold3_room12_mix009.csv, (1037, 6, 5, 13)
+49: fold3_room4_mix005.csv, (1094, 6, 5, 13)
+0: fold4_room10_mix005.csv, (1160, 6, 5, 13)
+1: fold4_room8_mix009.csv, (3591, 6, 5, 13)
+2: fold4_room2_mix001.csv, (1492, 6, 5, 13)
+3: fold4_room15_mix001.csv, (1634, 6, 5, 13)
+4: fold4_room2_mix003.csv, (2534, 6, 5, 13)
+5: fold4_room16_mix002.csv, (1267, 6, 5, 13)
+6: fold4_room10_mix001.csv, (1378, 6, 5, 13)
+7: fold4_room8_mix003.csv, (2135, 6, 5, 13)
+8: fold4_room10_mix004.csv, (1480, 6, 5, 13)
+9: fold4_room16_mix014.csv, (960, 6, 5, 13)
+10: fold4_room15_mix006.csv, (2987, 6, 5, 13)
+11: fold4_room10_mix006.csv, (1704, 6, 5, 13)
+12: fold4_room10_mix008.csv, (1469, 6, 5, 13)
+13: fold4_room15_mix002.csv, (1805, 6, 5, 13)
+14: fold4_room16_mix001.csv, (2198, 6, 5, 13)
+15: fold4_room15_mix005.csv, (1269, 6, 5, 13)
+16: fold4_room8_mix008.csv, (1672, 6, 5, 13)
+17: fold4_room8_mix005.csv, (1752, 6, 5, 13)
+18: fold4_room8_mix002.csv, (1878, 6, 5, 13)
+19: fold4_room16_mix007.csv, (2045, 6, 5, 13)
+20: fold4_room16_mix012.csv, (1411, 6, 5, 13)
+21: fold4_room15_mix008.csv, (1524, 6, 5, 13)
+22: fold4_room2_mix004.csv, (1703, 6, 5, 13)
+23: fold4_room16_mix003.csv, (1311, 6, 5, 13)
+24: fold4_room15_mix003.csv, (2726, 6, 5, 13)
+25: fold4_room8_mix007.csv, (1336, 6, 5, 13)
+26: fold4_room15_mix009.csv, (2237, 6, 5, 13)
+27: fold4_room10_mix009.csv, (1620, 6, 5, 13)
+28: fold4_room2_mix005.csv, (1836, 6, 5, 13)
+29: fold4_room16_mix010.csv, (1319, 6, 5, 13)
+30: fold4_room16_mix005.csv, (477, 6, 5, 13)
+31: fold4_room16_mix004.csv, (1418, 6, 5, 13)
+32: fold4_room16_mix011.csv, (1753, 6, 5, 13)
+33: fold4_room15_mix004.csv, (2866, 6, 5, 13)
+34: fold4_room15_mix007.csv, (2307, 6, 5, 13)
+35: fold4_room8_mix001.csv, (2081, 6, 5, 13)
+36: fold4_room16_mix009.csv, (840, 6, 5, 13)
+37: fold4_room15_mix010.csv, (5692, 6, 5, 13)
+38: fold4_room8_mix004.csv, (1062, 6, 5, 13)
+39: fold4_room16_mix008.csv, (455, 6, 5, 13)
+40: fold4_room16_mix013.csv, (1208, 6, 5, 13)
+41: fold4_room2_mix002.csv, (2729, 6, 5, 13)
+42: fold4_room8_mix006.csv, (2250, 6, 5, 13)
+43: fold4_room16_mix006.csv, (1759, 6, 5, 13)
+44: fold4_room10_mix002.csv, (1449, 6, 5, 13)
+45: fold4_room2_mix006.csv, (3490, 6, 5, 13)
+46: fold4_room10_mix007.csv, (1443, 6, 5, 13)
+47: fold4_room10_mix003.csv, (1402, 6, 5, 13)
+0: fold4_room23_mix008.csv, (530, 6, 5, 13)
+1: fold4_room24_mix014.csv, (1256, 6, 5, 13)
+2: fold4_room23_mix004.csv, (1022, 6, 5, 13)
+3: fold4_room24_mix002.csv, (1054, 6, 5, 13)
+4: fold4_room24_mix001.csv, (1789, 6, 5, 13)
+5: fold4_room24_mix009.csv, (775, 6, 5, 13)
+6: fold4_room23_mix011.csv, (1150, 6, 5, 13)
+7: fold4_room24_mix012.csv, (1568, 6, 5, 13)
+8: fold4_room24_mix005.csv, (1373, 6, 5, 13)
+9: fold4_room23_mix014.csv, (1200, 6, 5, 13)
+10: fold4_room23_mix003.csv, (420, 6, 5, 13)
+11: fold4_room23_mix006.csv, (1047, 6, 5, 13)
+12: fold4_room23_mix007.csv, (1260, 6, 5, 13)
+13: fold4_room24_mix011.csv, (633, 6, 5, 13)
+14: fold4_room23_mix009.csv, (650, 6, 5, 13)
+15: fold4_room24_mix016.csv, (798, 6, 5, 13)
+16: fold4_room23_mix005.csv, (743, 6, 5, 13)
+17: fold4_room23_mix001.csv, (607, 6, 5, 13)
+18: fold4_room24_mix013.csv, (572, 6, 5, 13)
+19: fold4_room24_mix015.csv, (728, 6, 5, 13)
+20: fold4_room24_mix006.csv, (1410, 6, 5, 13)
+21: fold4_room23_mix010.csv, (710, 6, 5, 13)
+22: fold4_room24_mix008.csv, (970, 6, 5, 13)
+23: fold4_room23_mix002.csv, (447, 6, 5, 13)
+24: fold4_room24_mix007.csv, (890, 6, 5, 13)
+25: fold4_room23_mix012.csv, (950, 6, 5, 13)
+26: fold4_room23_mix013.csv, (600, 6, 5, 13)
+27: fold4_room24_mix004.csv, (951, 6, 5, 13)
+28: fold4_room24_mix010.csv, (727, 6, 5, 13)
+29: fold4_room24_mix003.csv, (973, 6, 5, 13)
+0: fold3_room22_mix005.csv, (1335, 6, 5, 13)
+1: fold3_room21_mix002.csv, (1400, 6, 5, 13)
+2: fold3_room21_mix003.csv, (1180, 6, 5, 13)
+3: fold3_room22_mix002.csv, (1195, 6, 5, 13)
+4: fold3_room22_mix003.csv, (695, 6, 5, 13)
+5: fold3_room21_mix004.csv, (325, 6, 5, 13)
+6: fold3_room21_mix024.csv, (840, 6, 5, 13)
+7: fold3_room21_mix008.csv, (1555, 6, 5, 13)
+8: fold3_room21_mix006.csv, (379, 6, 5, 13)
+9: fold3_room21_mix009.csv, (1102, 6, 5, 13)
+10: fold3_room21_mix020.csv, (1276, 6, 5, 13)
+11: fold3_room22_mix006.csv, (600, 6, 5, 13)
+12: fold3_room21_mix007.csv, (768, 6, 5, 13)
+13: fold3_room21_mix012.csv, (1548, 6, 5, 13)
+14: fold3_room21_mix011.csv, (586, 6, 5, 13)
+15: fold3_room22_mix010.csv, (2250, 6, 5, 13)
+16: fold3_room21_mix001.csv, (894, 6, 5, 13)
+17: fold3_room21_mix010.csv, (945, 6, 5, 13)
+18: fold3_room21_mix015.csv, (1137, 6, 5, 13)
+19: fold3_room21_mix016.csv, (752, 6, 5, 13)
+20: fold3_room21_mix017.csv, (1320, 6, 5, 13)
+21: fold3_room21_mix019.csv, (490, 6, 5, 13)
+22: fold3_room22_mix004.csv, (1048, 6, 5, 13)
+23: fold3_room21_mix022.csv, (1750, 6, 5, 13)
+24: fold3_room21_mix013.csv, (650, 6, 5, 13)
+25: fold3_room21_mix021.csv, (1300, 6, 5, 13)
+26: fold3_room22_mix008.csv, (950, 6, 5, 13)
+27: fold3_room22_mix009.csv, (854, 6, 5, 13)
+28: fold3_room21_mix025.csv, (2430, 6, 5, 13)
+29: fold3_room21_mix005.csv, (680, 6, 5, 13)
+30: fold3_room22_mix011.csv, (1850, 6, 5, 13)
+31: fold3_room21_mix018.csv, (1300, 6, 5, 13)
+32: fold3_room21_mix027.csv, (1113, 6, 5, 13)
+33: fold3_room21_mix028.csv, (1000, 6, 5, 13)
+34: fold3_room22_mix001.csv, (750, 6, 5, 13)
+35: fold3_room21_mix023.csv, (1095, 6, 5, 13)
+36: fold3_room21_mix014.csv, (680, 6, 5, 13)
+37: fold3_room22_mix007.csv, (1261, 6, 5, 13)
+38: fold3_room21_mix026.csv, (2599, 6, 5, 13)
+39: fold3_room21_mix029.csv, (2061, 6, 5, 13)

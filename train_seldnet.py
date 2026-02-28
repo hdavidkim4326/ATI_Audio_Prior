@@ -4,21 +4,41 @@
 
 import os
 import sys
-import numpy as np
-import matplotlib.pyplot as plot
-import cls_feature_class
-import cls_data_generator
-import parameters
 import time
+import faulthandler
+
+
+def _boot_log(msg):
+    if os.environ.get('SELD_BOOT_LOG', '0') == '1':
+        print('[BOOT {}] {}'.format(time.strftime('%Y-%m-%d %H:%M:%S'), msg), flush=True)
+
+
+_boot_log('train_seldnet.py import 시작')
+
+import numpy as np
+_boot_log('numpy import 완료')
+import matplotlib.pyplot as plot
+_boot_log('matplotlib import 완료')
+import cls_feature_class
+_boot_log('cls_feature_class import 완료')
+import cls_data_generator
+_boot_log('cls_data_generator import 완료')
+import parameters
 from time import gmtime, strftime
 import torch
+_boot_log('torch import 완료')
 import torch.nn as nn
 import torch.optim as optim
 plot.switch_backend('agg')
-from IPython import embed
+try:
+    from IPython import embed
+except ImportError:
+    def embed(*args, **kwargs):
+        return None
 from cls_compute_seld_results import ComputeSELDResults, reshape_3Dto2D
 from SELD_evaluation_metrics import distance_between_cartesian_coordinates
 import seldnet_model 
+_boot_log('모듈 import 완료')
 
 def get_accdoa_labels(accdoa_in, nb_classes):
     x, y, z = accdoa_in[:, :, :nb_classes], accdoa_in[:, :, nb_classes:2*nb_classes], accdoa_in[:, :, 2*nb_classes:]
@@ -274,7 +294,16 @@ def test_epoch(data_generator, model, criterion, dcase_output_folder, params, de
 def train_epoch(data_generator, optimizer, model, criterion, params, device):
     nb_train_batches, train_loss = 0, 0.
     model.train()
+    
+    print("  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...")
+    
+    batch_start_time = time.time()
     for values in data_generator.generate():
+        # 데이터 로딩에 걸린 시간 측정
+        data_load_time = time.time() - batch_start_time
+        
+        compute_start_time = time.time()
+        
         # load one batch of data
         if len(values) == 2:
             data, target = values
@@ -293,13 +322,24 @@ def train_epoch(data_generator, optimizer, model, criterion, params, device):
         
         train_loss += loss.item()
         nb_train_batches += 1
+        
+        # GPU 연산에 걸린 시간 측정
+        compute_time = time.time() - compute_start_time
+        
+        # 50 배치마다 진행 상황 및 시간 로깅
+        if nb_train_batches % 50 == 0:
+            print(f"  -> [Debug] Train Batch {nb_train_batches} | Loss: {loss.item():.4f} | "
+                  f"Data Load Time: {data_load_time:.4f}s | GPU Compute Time: {compute_time:.4f}s")
+
         if params['quick_test'] and nb_train_batches == 4:
             break
+            
+        # 다음 배치 시간 측정 리셋
+        batch_start_time = time.time()
 
-    train_loss /= nb_train_batches
+    train_loss /= nb_train_batches if nb_train_batches > 0 else 1
 
     return train_loss
-
 
 def main(argv):
     """
@@ -327,11 +367,19 @@ def main(argv):
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
-    torch.autograd.set_detect_anomaly(True)
+    torch.autograd.set_detect_anomaly(False)
+
+    trace_sec = int(os.environ.get('SELD_TRACEBACK_TIMER_SEC', '0'))
+    if trace_sec > 0:
+        faulthandler.enable()
+        faulthandler.dump_traceback_later(trace_sec, repeat=True)
+        print('[Debug] 주기적 traceback 덤프 활성화: {}초'.format(trace_sec), flush=True)
 
     # use parameter set defined by user
     task_id = '1' if len(argv) < 2 else argv[1]
+    print('[Debug] parameters.get_params 시작 (task_id={})'.format(task_id), flush=True)
     params = parameters.get_params(task_id)
+    print('[Debug] parameters.get_params 완료', flush=True)
 
     job_id = 1 if len(argv) < 3 else argv[-1]
 
@@ -426,7 +474,10 @@ def main(argv):
             print('Dumping recording-wise val results in: {}'.format(dcase_output_val_folder))
 
             # Initialize evaluation metric class
+            ref_init_start = time.time()
+            print('[Debug] ComputeSELDResults 초기화 시작', flush=True)
             score_obj = ComputeSELDResults(params)
+            print('[Debug] ComputeSELDResults 초기화 완료 ({:.2f}s)'.format(time.time() - ref_init_start), flush=True)
 
             # start training
             best_val_epoch = -1
@@ -444,6 +495,7 @@ def main(argv):
                 # ---------------------------------------------------------------------
                 # TRAINING
                 # ---------------------------------------------------------------------
+                print(f"\n[Debug] ================== Epoch {epoch_cnt} 시작 ==================")
                 start_time = time.time()
                 train_loss = train_epoch(data_gen_train, optimizer, model, criterion, params, device)
                 train_time = time.time() - start_time
@@ -568,4 +620,3 @@ if __name__ == "__main__":
         sys.exit(main(sys.argv))
     except (ValueError, IOError) as e:
         sys.exit(e)
-
