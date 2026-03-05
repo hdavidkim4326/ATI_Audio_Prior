@@ -40,14 +40,82 @@ from SELD_evaluation_metrics import distance_between_cartesian_coordinates
 import seldnet_model 
 _boot_log('모듈 import 완료')
 
-def get_accdoa_labels(accdoa_in, nb_classes):
+
+def _is_metric_improved(params, val_F, val_seld_scr, best_F, best_seld_scr):
+    # 개선 판정 로직: 기본은 F-score, task35/36은 SELD, task37은 F-SELD 하이브리드 사용 가능
+    metric = params.get('early_stop_metric', 'f_score')
+    min_delta = float(params.get('early_stop_min_delta', 0.0))
+    if metric == 'seld_score':
+        return val_seld_scr < (best_seld_scr - min_delta)
+    if metric == 'f_seld_hybrid':
+        seld_w = float(params.get('early_stop_seld_weight', 0.35))
+        cur_score = val_F - seld_w * val_seld_scr
+        best_score = best_F - seld_w * best_seld_scr
+        return cur_score > (best_score + min_delta)
+    return val_F > (best_F + min_delta)
+
+
+def _load_state_dict_flexible_input(model, state_dict, verbose=True):
+    """
+    체크포인트와 현재 모델의 입력 채널 수가 다를 때(예: 7 -> 8) 첫 Conv 가중치를 보정해 로드한다.
+    - 공통 채널은 복사
+    - 새로 늘어난 채널은 0으로 초기화 (기존 동작 보존)
+    """
+    model_state = model.state_dict()
+    merged_state = {}
+    adapted_keys = []
+    skipped_keys = []
+
+    for key, src_tensor in state_dict.items():
+        if key not in model_state:
+            continue
+        dst_tensor = model_state[key]
+
+        if src_tensor.shape == dst_tensor.shape:
+            merged_state[key] = src_tensor
+            continue
+
+        can_adapt_conv_in = (
+            src_tensor.ndim == 4 and dst_tensor.ndim == 4 and
+            src_tensor.shape[0] == dst_tensor.shape[0] and
+            src_tensor.shape[2:] == dst_tensor.shape[2:]
+        )
+        if can_adapt_conv_in:
+            adapted = dst_tensor.clone()
+            common_in_ch = min(src_tensor.shape[1], dst_tensor.shape[1])
+            adapted[:, :common_in_ch, :, :] = src_tensor[:, :common_in_ch, :, :]
+            if dst_tensor.shape[1] > src_tensor.shape[1]:
+                adapted[:, src_tensor.shape[1]:, :, :] = 0.0
+            merged_state[key] = adapted
+            adapted_keys.append((key, tuple(src_tensor.shape), tuple(dst_tensor.shape)))
+            continue
+
+        skipped_keys.append((key, tuple(src_tensor.shape), tuple(dst_tensor.shape)))
+
+    model_state.update(merged_state)
+    model.load_state_dict(model_state, strict=False)
+
+    if verbose:
+        if adapted_keys:
+            print('[Info] 입력 채널 불일치 가중치 보정 로드:')
+            for key, src_shape, dst_shape in adapted_keys:
+                print('  - {}: {} -> {}'.format(key, src_shape, dst_shape))
+        if skipped_keys:
+            print('[Info] shape 불일치로 스킵된 키: {}'.format(len(skipped_keys)))
+            for key, src_shape, dst_shape in skipped_keys[:8]:
+                print('  - {}: {} -> {}'.format(key, src_shape, dst_shape))
+            if len(skipped_keys) > 8:
+                print('  ... and {} more'.format(len(skipped_keys) - 8))
+
+
+def get_accdoa_labels(accdoa_in, nb_classes, sed_threshold=0.5):
     x, y, z = accdoa_in[:, :, :nb_classes], accdoa_in[:, :, nb_classes:2*nb_classes], accdoa_in[:, :, 2*nb_classes:]
-    sed = np.sqrt(x**2 + y**2 + z**2) > 0.5
+    sed = np.sqrt(x**2 + y**2 + z**2) > float(sed_threshold)
       
     return sed, accdoa_in
 
 
-def get_multi_accdoa_labels(accdoa_in, nb_classes):
+def get_multi_accdoa_labels(accdoa_in, nb_classes, sed_threshold=0.5):
     """
     Args:
         accdoa_in:  [batch_size, frames, num_track*num_axis*num_class=3*3*12]
@@ -59,19 +127,19 @@ def get_multi_accdoa_labels(accdoa_in, nb_classes):
     x0, y0, z0 = accdoa_in[:, :, :1*nb_classes], accdoa_in[:, :, 1*nb_classes:2*nb_classes], accdoa_in[:, :, 2*nb_classes:3*nb_classes]
     dist0 = accdoa_in[:, :, 3*nb_classes:4*nb_classes]
     dist0[dist0 < 0.] = 0.
-    sed0 = np.sqrt(x0**2 + y0**2 + z0**2) > 0.5
+    sed0 = np.sqrt(x0**2 + y0**2 + z0**2) > float(sed_threshold)
     doa0 = accdoa_in[:, :, :3*nb_classes]
 
     x1, y1, z1 = accdoa_in[:, :, 4*nb_classes:5*nb_classes], accdoa_in[:, :, 5*nb_classes:6*nb_classes], accdoa_in[:, :, 6*nb_classes:7*nb_classes]
     dist1 = accdoa_in[:, :, 7*nb_classes:8*nb_classes]
     dist1[dist1<0.] = 0.
-    sed1 = np.sqrt(x1**2 + y1**2 + z1**2) > 0.5
+    sed1 = np.sqrt(x1**2 + y1**2 + z1**2) > float(sed_threshold)
     doa1 = accdoa_in[:, :, 4*nb_classes: 7*nb_classes]
 
     x2, y2, z2 = accdoa_in[:, :, 8*nb_classes:9*nb_classes], accdoa_in[:, :, 9*nb_classes:10*nb_classes], accdoa_in[:, :, 10*nb_classes:11*nb_classes]
     dist2 = accdoa_in[:, :, 11*nb_classes:]
     dist2[dist2<0.] = 0.
-    sed2 = np.sqrt(x2**2 + y2**2 + z2**2) > 0.5
+    sed2 = np.sqrt(x2**2 + y2**2 + z2**2) > float(sed_threshold)
     doa2 = accdoa_in[:, :, 8*nb_classes:11*nb_classes]
 
     return sed0, doa0, dist0, sed1, doa1, dist1, sed2, doa2, dist2
@@ -90,6 +158,7 @@ def determine_similar_location(sed_pred0, sed_pred1, doa_pred0, doa_pred1, class
 
 def eval_epoch(data_generator, model, dcase_output_folder, params, device):
     eval_filelist = data_generator.get_filelist()
+    sed_threshold = float(params.get('accdoa_sed_thresh', 0.5))
     model.eval()
     file_cnt = 0
     with torch.no_grad():
@@ -104,7 +173,9 @@ def eval_epoch(data_generator, model, dcase_output_folder, params, device):
                 output = model(data)
 
             if params['multi_accdoa'] is True:
-                sed_pred0, doa_pred0, dist_pred0, sed_pred1, doa_pred1, dist_pred1, sed_pred2, doa_pred2, dist_pred2 = get_multi_accdoa_labels(output.detach().cpu().numpy(), params['unique_classes'])
+                sed_pred0, doa_pred0, dist_pred0, sed_pred1, doa_pred1, dist_pred1, sed_pred2, doa_pred2, dist_pred2 = get_multi_accdoa_labels(
+                    output.detach().cpu().numpy(), params['unique_classes'], sed_threshold=sed_threshold
+                )
                 sed_pred0 = reshape_3Dto2D(sed_pred0)
                 doa_pred0 = reshape_3Dto2D(doa_pred0)
                 dist_pred0 = reshape_3Dto2D(dist_pred0)
@@ -115,7 +186,9 @@ def eval_epoch(data_generator, model, dcase_output_folder, params, device):
                 doa_pred2 = reshape_3Dto2D(doa_pred2)
                 dist_pred2 = reshape_3Dto2D(dist_pred2)
             else:
-                sed_pred, doa_pred = get_accdoa_labels(output.detach().cpu().numpy(), params['unique_classes'])
+                sed_pred, doa_pred = get_accdoa_labels(
+                    output.detach().cpu().numpy(), params['unique_classes'], sed_threshold=sed_threshold
+                )
                 sed_pred = reshape_3Dto2D(sed_pred)
                 doa_pred = reshape_3Dto2D(doa_pred)
 
@@ -188,6 +261,7 @@ def test_epoch(data_generator, model, criterion, dcase_output_folder, params, de
     test_filelist = data_generator.get_filelist()
 
     nb_test_batches, test_loss = 0, 0.
+    sed_threshold = float(params.get('accdoa_sed_thresh', 0.5))
     model.eval()
     file_cnt = 0
     with torch.no_grad():
@@ -203,7 +277,9 @@ def test_epoch(data_generator, model, criterion, dcase_output_folder, params, de
             loss = criterion(output, target)
 
             if params['multi_accdoa'] is True:
-                sed_pred0, doa_pred0, dist_pred0, sed_pred1, doa_pred1, dist_pred1, sed_pred2, doa_pred2, dist_pred2 = get_multi_accdoa_labels(output.detach().cpu().numpy(), params['unique_classes'])
+                sed_pred0, doa_pred0, dist_pred0, sed_pred1, doa_pred1, dist_pred1, sed_pred2, doa_pred2, dist_pred2 = get_multi_accdoa_labels(
+                    output.detach().cpu().numpy(), params['unique_classes'], sed_threshold=sed_threshold
+                )
                 sed_pred0 = reshape_3Dto2D(sed_pred0)
                 doa_pred0 = reshape_3Dto2D(doa_pred0)
                 dist_pred0 = reshape_3Dto2D(dist_pred0)
@@ -214,7 +290,9 @@ def test_epoch(data_generator, model, criterion, dcase_output_folder, params, de
                 doa_pred2 = reshape_3Dto2D(doa_pred2)
                 dist_pred2 = reshape_3Dto2D(dist_pred2)
             else:
-                sed_pred, doa_pred = get_accdoa_labels(output.detach().cpu().numpy(), params['unique_classes'])
+                sed_pred, doa_pred = get_accdoa_labels(
+                    output.detach().cpu().numpy(), params['unique_classes'], sed_threshold=sed_threshold
+                )
                 sed_pred = reshape_3Dto2D(sed_pred)
                 doa_pred = reshape_3Dto2D(doa_pred)
 
@@ -454,12 +532,21 @@ def main(argv):
                 data_in, data_out = data_gen_train.get_data_sizes()
                 model = seldnet_model.SeldModel(data_in, data_out, params).to(device)
 
+            if params.get('l2_mode') == 'foa_l3_guided_reinforcement':
+                expected_mel_ch = int(params.get('nb_channels', 5))
+                expected_total_ch = expected_mel_ch + 3  # mel 채널 + IV(3채널)
+                print('[Task36] expected mel channels: {}, expected total input channels: {}'.format(
+                    expected_mel_ch, expected_total_ch
+                ))
+                if data_in[1] != expected_total_ch:
+                    print('[Task36] 경고: 실제 data_in 채널({}) != 기대 채널({})'.format(data_in[1], expected_total_ch))
+
             if params['finetune_mode']:
                 print('Running in finetuning mode. Initializing the model to the weights - {}'.format(params['pretrained_model_weights']))
                 state_dict = torch.load(params['pretrained_model_weights'], map_location='cpu')
                 if params['modality'] == 'audio_visual':
                     state_dict = {k: v for k, v in state_dict.items() if 'fnn' not in k}
-                model.load_state_dict(state_dict, strict=False)
+                _load_state_dict_flexible_input(model, state_dict, verbose=True)
 
             print('---------------- SELD-net -------------------')
             print('FEATURES:\n\tdata_in: {}\n\tdata_out: {}\n'.format(data_in, data_out))
@@ -483,6 +570,14 @@ def main(argv):
             best_val_epoch = -1
             best_ER, best_F, best_LE, best_LR, best_seld_scr, best_dist_err, best_rel_dist_err = 1., 0., 180., 0., 9999, 999999., 999999.
             patience_cnt = 0
+            print('[Debug] Early stopping 설정: metric={}, patience={}, min_delta={}'.format(
+                params.get('early_stop_metric', 'f_score'),
+                params['patience'],
+                params.get('early_stop_min_delta', 0.0)
+            ))
+            if params.get('early_stop_metric', 'f_score') == 'f_seld_hybrid':
+                print('[Debug] Hybrid early stop weight (SELD): {}'.format(params.get('early_stop_seld_weight', 0.35)))
+            print('[Debug] ACCDOA SED threshold: {}'.format(params.get('accdoa_sed_thresh', 0.5)))
 
             nb_epoch = 2 if params['quick_test'] else params['nb_epochs']
             optimizer = optim.Adam(model.parameters(), lr=params['lr'])
@@ -511,8 +606,8 @@ def main(argv):
 
                 val_time = time.time() - start_time
 
-                # Save model if F-score is good
-                if val_F >= best_F:
+                # 설정된 지표 기준으로 best 모델 갱신
+                if _is_metric_improved(params, val_F, val_seld_scr, best_F, best_seld_scr):
                     best_val_epoch, best_ER, best_F, best_LE, best_LR, best_seld_scr, best_dist_err = epoch_cnt, val_ER, val_F, val_LE, val_LR, val_seld_scr, val_dist_err
                     best_rel_dist_err = val_rel_dist_err
                     torch.save(model.state_dict(), model_name)
@@ -534,6 +629,7 @@ def main(argv):
                 )
 
                 if patience_cnt > params['patience']:
+                    print('[Debug] Early stopping 발동: {} epochs 동안 개선 없음'.format(patience_cnt))
                     break
 
             # ---------------------------------------------------------------------

@@ -1,0 +1,16 @@
+=== Eval Test-Only Summary ===
+완료시각: 2026-03-01 13:53:15
+task_id: 34
+job_id: ivres34_0301_1540
+model_path: models_audio/34_ivres34_0301_1540_dev_split0_multiaccdoa_foa_model.h5
+output_dir: results_audio/34_ivres34_0301_1540_dev_split0_multiaccdoa_foa_20260301135119_testonly
+
+[최종 지표]
+test_loss=0.0706
+SELD=0.5216
+F-score=0.1357
+AngularError=34.9269
+DistanceError=0.4751
+RelativeDistanceError=0.2704
+ER=0.7429
+LR=0.2807

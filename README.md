@@ -102,6 +102,10 @@ The baseline workflow remains unchanged. Additional task-ids and scripts are add
 
 - `task-id 3`: baseline FOA + Multi-ACCDOA (large model, no L2)
 - `task-id 31`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF softmask
+- `task-id 32`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF adaptive softmask
+- `task-id 33`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF decoupled adaptive softmask (W 보존, XYZ만 마스킹)
+- `task-id 34`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF IV-residual adaptive (mel 보존, IV만 보강)
+- `task-id 35`: baseline-size FOA + Multi-ACCDOA + L2 FOA TF IV-residual dynamic adaptive + aggressive early-stop
 - `task-id 41`: small L3 FOA + Multi-ACCDOA (no L2)
 - `task-id 42`: small L3 FOA + Multi-ACCDOA + L2 FOA TF softmask
 
@@ -109,9 +113,23 @@ L2 is controlled from `parameters.py` via:
 - `l2_enable`
 - `l2_mode='foa_tf_softmask'`
 - `l2_mask_tau`
+- `l2_mask_tau_base`
 - `l2_mask_k`
+- `l2_diffuseness_alpha`
+- `l2_iv_blend_lambda`
+- `l2_iv_blend_lambda_min`
+- `l2_iv_blend_lambda_max`
+- `l2_iv_blend_gamma`
+- `early_stop_metric`
+- `early_stop_patience`
+- `early_stop_min_delta`
 
-When L2 is enabled, features are extracted into isolated directories with suffix `_l2foa`, so baseline features are not overwritten.
+When L2 is enabled, features are extracted into isolated directories, so baseline features are not overwritten.
+- `foa_tf_softmask` -> suffix `_l2foa`
+- `foa_tf_adaptive_softmask` -> suffix `_l2foa_adapt`
+- `foa_tf_decoupled_adaptive_softmask` -> suffix `_l2foa_decoupled`
+- `foa_tf_iv_adaptive_residual` -> suffix `_l2foa_ivres`
+- `foa_tf_iv_adaptive_residual_dynamic` -> suffix `_l2foa_ivresdyn`
 
 ### Baseline (unchanged)
 
@@ -125,6 +143,34 @@ python train_seldnet.py 3 1
 ```bash
 python batch_feature_extraction.py 31
 python train_seldnet.py 31 1
+```
+
+### L2 adaptive softmask feature extraction + training
+
+```bash
+python batch_feature_extraction.py 32
+python train_seldnet.py 32 1
+```
+
+### L2 decoupled adaptive softmask feature extraction + training
+
+```bash
+python batch_feature_extraction.py 33
+python train_seldnet.py 33 1
+```
+
+### L2 IV-residual adaptive feature extraction + training
+
+```bash
+python batch_feature_extraction.py 34
+python train_seldnet.py 34 1
+```
+
+### L2 IV-residual dynamic adaptive + early-stop feature extraction + training
+
+```bash
+python batch_feature_extraction.py 35
+python train_seldnet.py 35 1
 ```
 
 ### L3 small model training

@@ -1,0 +1,14 @@
+=== Task37 요약 ===
+완료시각: 2026-03-03 18:41:52
+로그: logs/task37_ivact37_0303_20260303_122557.log
+결과폴더: results_audio/37_ivact37_0303_dev_split0_multiaccdoa_foa_20260303092745_test
+
+[최종 지표]
+SELD score (early stopping metric): 0.51 [0.36, 0.54]
+SED metrics: F-score: 13.6 [10.24, 16.84]
+DOA metrics: Angular error: 46.9 [39.56 , 77.18]
+Distance metrics: 0.58 [0.42 , 0.73]
+Relative Distance metrics: 0.30 [0.22 , 0.34]
+
+[모델 파일 후보]
+models_audio/37_ivact37_0303_dev_split0_multiaccdoa_foa_model.h5

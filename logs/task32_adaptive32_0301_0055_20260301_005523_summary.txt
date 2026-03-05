@@ -1,0 +1,14 @@
+=== Task32 요약 ===
+완료시각: 2026-03-01 07:52:06
+로그: logs/task32_adaptive32_0301_0055_20260301_005523.log
+결과폴더: results_audio/32_adaptive32_0301_0055_dev_split0_multiaccdoa_foa_20260228224202_test
+
+[최종 지표]
+SELD score (early stopping metric): 0.53 [0.41, 0.57]
+SED metrics: F-score: 13.9 [10.39, 17.85]
+DOA metrics: Angular error: 35.5 [30.64 , 45.67]
+Distance metrics: 0.55 [0.38 , 0.68]
+Relative Distance metrics: 0.29 [0.22 , 0.31]
+
+[모델 파일 후보]
+models_audio/32_adaptive32_0301_0055_dev_split0_multiaccdoa_foa_model.h5

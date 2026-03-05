@@ -1,0 +1,14 @@
+=== Task36 요약 ===
+완료시각: 2026-03-02 19:37:43
+로그: logs/task36_ssa36_fix_20260302_144421.log
+결과폴더: results_audio/36_ssa36_fix_dev_split0_multiaccdoa_foa_20260302102635_test
+
+[최종 지표]
+SELD score (early stopping metric): 0.52 [0.39, 0.57]
+SED metrics: F-score: 12.9 [9.96, 15.53]
+DOA metrics: Angular error: 47.5 [40.51 , 57.64]
+Distance metrics: 0.71 [0.33 , 0.95]
+Relative Distance metrics: 0.31 [0.21 , 0.35]
+
+[모델 파일 후보]
+models_audio/36_ssa36_fix_dev_split0_multiaccdoa_foa_model.h5

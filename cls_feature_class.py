@@ -6,6 +6,7 @@ try:
 except ImportError:
     Image = None
 import os
+import glob
 import numpy as np
 import scipy.io.wavfile as wav
 from sklearn import preprocessing
@@ -85,7 +86,25 @@ class FeatureClass:
         self._l2_enable = bool(params.get('l2_enable', False)) and self._dataset == 'foa'
         self._l2_mode = params.get('l2_mode', 'foa_tf_softmask')
         self._l2_mask_tau = float(params.get('l2_mask_tau', 0.05))
+        self._l2_mask_tau_base = float(params.get('l2_mask_tau_base', 0.2))
         self._l2_mask_k = float(params.get('l2_mask_k', 10.0))
+        self._l2_diffuseness_alpha = float(params.get('l2_diffuseness_alpha', 0.5))
+        self._l2_iv_blend_lambda = float(params.get('l2_iv_blend_lambda', 0.5))
+        self._l2_iv_blend_lambda_min = float(params.get('l2_iv_blend_lambda_min', 0.2))
+        self._l2_iv_blend_lambda_max = float(params.get('l2_iv_blend_lambda_max', 0.6))
+        self._l2_iv_blend_gamma = float(params.get('l2_iv_blend_gamma', 1.5))
+        self._l3_prior_dir = params.get('l3_prior_dir', '')
+        self._l3_prior_topk = int(params.get('l3_prior_topk', 3))
+        self._l3_saliency_beta = float(params.get('l3_saliency_beta', 12.0))
+        self._l3_saliency_tau = float(params.get('l3_saliency_tau', 0.15))
+        self._l3_saliency_default = float(params.get('l3_saliency_default', 0.5))
+        self._l3_saliency_temp_smooth = float(params.get('l3_saliency_temp_smooth', 0.8))
+        self._l3_saliency_use_energy_gate = bool(params.get('l3_saliency_use_energy_gate', True))
+        self._l3_saliency_energy_gamma = float(params.get('l3_saliency_energy_gamma', 0.5))
+        self._l3_iv_gain_max = float(params.get('l3_iv_gain_max', 0.35))
+        self._l3_iv_delta_clip = float(params.get('l3_iv_delta_clip', 0.30))
+        self._l3_iv_conf_gamma = float(params.get('l3_iv_conf_gamma', 1.2))
+        self._l3_iv_conf_floor = float(params.get('l3_iv_conf_floor', 0.05))
 
         self._multi_accdoa = params['multi_accdoa']
         self._use_salsalite = params['use_salsalite']
@@ -114,6 +133,13 @@ class FeatureClass:
         self._nb_unique_classes = params['unique_classes']
 
         self._filewise_frames = {}
+        self._debug_plot_saved = False
+        self._l3_prior_csv_by_file = {}
+        self._l3_prior_cache = {}
+
+        if self._l2_enable and self._l2_mode in ('foa_l3_guided_reinforcement', 'foa_tf_iv_l3_aware_residual_dynamic'):
+            self._l3_prior_csv_by_file = self._index_l3_prior_csv_files()
+            print('[Task36] L3 prior indexed files: {}'.format(len(self._l3_prior_csv_by_file)))
 
     def get_frame_stats(self):
 
@@ -155,9 +181,223 @@ class FeatureClass:
         return np.array(spectra).T
 
     def _get_feature_variant_suffix(self):
-        if self._l2_enable and self._dataset == 'foa' and self._l2_mode == 'foa_tf_softmask':
-            return '_l2foa'
+        if self._l2_enable and self._dataset == 'foa':
+            if self._l2_mode == 'foa_tf_softmask':
+                return '_l2foa'
+            if self._l2_mode == 'foa_tf_adaptive_softmask':
+                return '_l2foa_adapt'
+            if self._l2_mode == 'foa_tf_decoupled_adaptive_softmask':
+                return '_l2foa_decoupled'
+            if self._l2_mode == 'foa_tf_iv_adaptive_residual':
+                return '_l2foa_ivres'
+            if self._l2_mode == 'foa_tf_iv_adaptive_residual_dynamic':
+                return '_l2foa_ivresdyn'
+            if self._l2_mode == 'foa_l3_guided_reinforcement':
+                return '_l2foa_l3ssa'
+            if self._l2_mode == 'foa_tf_iv_l3_aware_residual_dynamic':
+                return '_l2foa_l3ivact'
         return ''
+
+    def _find_l3_prior_dirs(self):
+        dirs = []
+        if self._l3_prior_dir:
+            for path in str(self._l3_prior_dir).split(':'):
+                path = path.strip()
+                if not path:
+                    continue
+                abs_path = path if os.path.isabs(path) else os.path.abspath(os.path.join(os.getcwd(), path))
+                if os.path.isdir(abs_path):
+                    dirs.append(abs_path)
+                else:
+                    print('[Task36] 경고: l3_prior_dir를 찾을 수 없습니다: {}'.format(abs_path))
+            return dirs
+
+        result_root = os.path.join(os.getcwd(), 'results_audio')
+        if not os.path.isdir(result_root):
+            return dirs
+
+        for entry in os.listdir(result_root):
+            full = os.path.join(result_root, entry)
+            if not os.path.isdir(full):
+                continue
+            if not entry.startswith('3_'):
+                continue
+            if ('_val' not in entry) and ('_test' not in entry):
+                continue
+            dirs.append(full)
+
+        dirs.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+        return dirs
+
+    def _index_l3_prior_csv_files(self):
+        csv_by_file = {}
+        l3_dirs = self._find_l3_prior_dirs()
+        if not l3_dirs:
+            print('[Task36] 경고: 사용할 task3 prior 디렉토리를 찾지 못했습니다. fallback saliency만 사용됩니다.')
+            return csv_by_file
+
+        for l3_dir in l3_dirs:
+            for csv_path in glob.glob(os.path.join(l3_dir, '*.csv')):
+                file_id = os.path.splitext(os.path.basename(csv_path))[0]
+                if file_id not in csv_by_file:
+                    csv_by_file[file_id] = csv_path
+        return csv_by_file
+
+    def _load_l3_preds_for_file(self, file_id):
+        if file_id in self._l3_prior_cache:
+            return self._l3_prior_cache[file_id]
+
+        csv_path = self._l3_prior_csv_by_file.get(file_id)
+        if csv_path is None:
+            self._l3_prior_cache[file_id] = None
+            return None
+
+        frame_to_dirs = {}
+        topk = max(1, self._l3_prior_topk)
+
+        try:
+            with open(csv_path, 'r') as fdesc:
+                for line in fdesc:
+                    words = line.strip().split(',')
+                    if len(words) < 4:
+                        continue
+
+                    try:
+                        frame_idx = int(words[0])
+                    except Exception:
+                        continue
+
+                    unit_vec = None
+                    conf = 1.0
+                    try:
+                        if len(words) >= 7:
+                            # frame, class, track, x, y, z, dist
+                            x, y, z = float(words[3]), float(words[4]), float(words[5])
+                            mag = np.sqrt(x*x + y*y + z*z)
+                            if mag < self._eps:
+                                continue
+                            unit_vec = np.array([x, y, z], dtype=np.float32) / (mag + self._eps)
+                            conf = float(np.clip(mag, 0.0, 1.0))
+                        else:
+                            # polar format fallback
+                            if len(words) == 6:
+                                azi_deg, ele_deg = float(words[3]), float(words[4])
+                            elif len(words) == 5:
+                                azi_deg, ele_deg = float(words[3]), float(words[4])
+                            elif len(words) == 4:
+                                azi_deg, ele_deg = float(words[2]), float(words[3])
+                            else:
+                                continue
+                            azi_rad = np.deg2rad(azi_deg)
+                            ele_rad = np.deg2rad(ele_deg)
+                            cos_ele = np.cos(ele_rad)
+                            unit_vec = np.array(
+                                [np.cos(azi_rad) * cos_ele, np.sin(azi_rad) * cos_ele, np.sin(ele_rad)],
+                                dtype=np.float32
+                            )
+                            conf = 1.0
+                    except Exception:
+                        continue
+
+                    frame_to_dirs.setdefault(frame_idx, []).append((unit_vec, conf))
+        except Exception as err:
+            print('[Task36] 경고: prior CSV 로딩 실패: {} ({})'.format(csv_path, err))
+            self._l3_prior_cache[file_id] = None
+            return None
+
+        for frame_idx, items in list(frame_to_dirs.items()):
+            items = sorted(items, key=lambda x: x[1], reverse=True)[:topk]
+            frame_to_dirs[frame_idx] = items
+
+        priors = frame_to_dirs if frame_to_dirs else None
+        self._l3_prior_cache[file_id] = priors
+        return priors
+
+    def _build_l3_guided_saliency_map(self, linear_spectra, l3_preds):
+        if linear_spectra.shape[-1] < 4:
+            return np.ones(linear_spectra.shape[:2], dtype=np.float32) * np.clip(self._l3_saliency_default, 0.0, 1.0)
+
+        W = linear_spectra[:, :, 0]
+        xyz = linear_spectra[:, :, 1:4]
+        intensity = np.real(np.conj(W)[:, :, np.newaxis] * xyz)
+        norm_intensity = np.linalg.norm(intensity, axis=-1, keepdims=True)
+        d_vec = intensity / (norm_intensity + self._eps)
+
+        nb_frames, nb_bins = W.shape
+        saliency = np.zeros((nb_frames, nb_bins), dtype=np.float32)
+        beta = float(self._l3_saliency_beta)
+        tau = float(self._l3_saliency_tau)
+        default_sal = float(np.clip(self._l3_saliency_default, 0.0, 1.0))
+
+        feat_to_label_ratio = max(1, int(round(self._label_hop_len / float(self._hop_len))))
+        fallback_mask = None
+
+        for frame_idx in range(nb_frames):
+            frame_preds = None if l3_preds is None else l3_preds.get(frame_idx // feat_to_label_ratio)
+            if frame_preds:
+                dirs = np.stack([v for v, _ in frame_preds], axis=0)  # [K,3]
+                conf = np.array([c for _, c in frame_preds], dtype=np.float32)  # [K]
+                dot = np.clip(np.matmul(d_vec[frame_idx], dirs.T), -1.0, 1.0)  # [F,K]
+                logits = np.clip(beta * (dot - tau), -30.0, 30.0)
+                frame_score = 1.0 / (1.0 + np.exp(-logits))
+                frame_score = frame_score * conf[np.newaxis, :]
+                saliency[frame_idx] = frame_score.max(axis=1)
+            else:
+                if fallback_mask is None:
+                    fallback_mask, _, _ = self._compute_foa_adaptive_mask(linear_spectra)
+                    if fallback_mask is None:
+                        fallback_mask = np.ones((nb_frames, nb_bins), dtype=np.float32) * default_sal
+                saliency[frame_idx] = fallback_mask[frame_idx]
+
+        if self._l3_saliency_use_energy_gate:
+            energy = np.abs(W) ** 2 + (np.abs(xyz) ** 2).sum(axis=-1) / 3.0
+            e_max = np.max(energy, axis=1, keepdims=True)
+            gate = np.power(energy / (e_max + self._eps), max(self._l3_saliency_energy_gamma, 0.0))
+            gate = np.clip(gate, 0.0, 1.0)
+            saliency = saliency * gate
+
+        alpha = np.clip(self._l3_saliency_temp_smooth, 0.0, 0.999)
+        if alpha > 0.0:
+            for frame_idx in range(1, nb_frames):
+                saliency[frame_idx] = alpha * saliency[frame_idx - 1] + (1.0 - alpha) * saliency[frame_idx]
+
+        return np.clip(saliency, 0.0, 1.0)
+
+    def _apply_foa_l3_guided_reinforcement(self, linear_spectra, l3_preds):
+        if linear_spectra.shape[-1] < 4:
+            return linear_spectra
+
+        saliency = self._build_l3_guided_saliency_map(linear_spectra, l3_preds)
+        saliency_ch = saliency[:, :, np.newaxis].astype(linear_spectra.dtype, copy=False)
+        return np.concatenate((linear_spectra, saliency_ch), axis=-1)
+
+    def _apply_l3_saliency_xyz_boost(self, linear_spectra, saliency):
+        if linear_spectra.shape[-1] < 4:
+            return linear_spectra
+        gain_max = max(self._l3_iv_gain_max, 0.0)
+        if gain_max <= 0.0:
+            return linear_spectra
+
+        # saliency가 default보다 높은 영역만 능동 증폭해 정보 손실을 피한다.
+        default_sal = np.clip(self._l3_saliency_default, 0.0, 1.0)
+        active_sal = np.clip((saliency - default_sal) / (1.0 - default_sal + self._eps), 0.0, 1.0)
+        xyz_gain = 1.0 + gain_max * active_sal[:, :, np.newaxis]
+
+        boosted = linear_spectra.copy()
+        boosted[:, :, 1:4] = boosted[:, :, 1:4] * xyz_gain
+        return boosted
+
+    def _compute_l3_frame_confidence(self, saliency, has_l3_prior):
+        nb_frames, nb_bins = saliency.shape
+        if not has_l3_prior:
+            return np.zeros((nb_frames,), dtype=np.float32)
+
+        topk = max(1, nb_bins // 8)
+        part = np.partition(saliency, nb_bins - topk, axis=1)[:, -topk:]
+        frame_conf = np.mean(part, axis=1)
+        default_sal = np.clip(self._l3_saliency_default, 0.0, 1.0)
+        frame_conf = np.clip((frame_conf - default_sal) / (1.0 - default_sal + self._eps), 0.0, 1.0)
+        return frame_conf.astype(np.float32, copy=False)
 
     def _apply_foa_tf_softmask(self, linear_spectra):
         if linear_spectra.shape[-1] < 4:
@@ -186,6 +426,113 @@ class FeatureClass:
 
         return linear_spectra * mask[:, :, np.newaxis]
 
+    def _compute_foa_adaptive_mask(self, linear_spectra):
+        if linear_spectra.shape[-1] < 4:
+            return None, None, None
+
+        W = linear_spectra[:, :, 0]
+        xyz = linear_spectra[:, :, 1:4]
+
+        # 의사 강도 벡터, 방향 벡터, 에너지 계산
+        intensity = np.real(np.conj(W)[:, :, np.newaxis] * xyz)
+        norm_intensity = np.linalg.norm(intensity, axis=-1, keepdims=True)
+        d_vec = intensity / (norm_intensity + self._eps)
+        energy = np.abs(W) ** 2 + (np.abs(xyz) ** 2).sum(axis=-1) / 3.0 + self._eps
+
+        # 프레임별 확산도 D(t) 계산
+        mean_intensity_t = intensity.mean(axis=1)
+        mean_energy_t = energy.mean(axis=1)
+        diffuseness = 1.0 - (np.linalg.norm(mean_intensity_t, axis=-1) / (mean_energy_t + self._eps))
+        diffuseness = np.clip(diffuseness, 0.0, 1.0)
+
+        # 확산도 기반 동적 임계값 적용
+        dynamic_tau = self._l2_mask_tau_base - (self._l2_diffuseness_alpha * diffuseness)
+        dynamic_tau = np.clip(dynamic_tau, 0.0, 1.0)
+
+        # 프레임별 지배적 방향 계산, 약한 프레임은 전역 방향으로 보정
+        weighted_dir_t = (d_vec * energy[:, :, np.newaxis]).sum(axis=1)
+        u_norm_t = np.linalg.norm(weighted_dir_t, axis=-1, keepdims=True)
+
+        weighted_dir_global = weighted_dir_t.sum(axis=0)
+        u_global_norm = np.linalg.norm(weighted_dir_global)
+        if u_global_norm < self._eps:
+            return None, diffuseness, W
+        u_vec_global = weighted_dir_global / (u_global_norm + self._eps)
+
+        u_vec_t = weighted_dir_t / (u_norm_t + self._eps)
+        weak_frames = (u_norm_t[:, 0] < self._eps)
+        if np.any(weak_frames):
+            u_vec_t[weak_frames] = u_vec_global[np.newaxis, :]
+
+        dot = np.sum(d_vec * u_vec_t[:, np.newaxis, :], axis=-1)
+        logits = self._l2_mask_k * (dot - dynamic_tau[:, np.newaxis])
+        logits = np.clip(logits, -30.0, 30.0)
+        mask = 1.0 / (1.0 + np.exp(-logits))
+
+        return mask, diffuseness, W
+
+    def _apply_foa_tf_adaptive_softmask(self, linear_spectra):
+        mask, _, _ = self._compute_foa_adaptive_mask(linear_spectra)
+        if mask is None:
+            return linear_spectra
+        return linear_spectra * mask[:, :, np.newaxis]
+
+    def _save_decoupled_l2_debug_plot(self, W, diffuseness, mask):
+        try:
+            fig, axes = plot.subplots(3, 1, figsize=(12, 10))
+
+            # 1) 원본 W 채널 파워 스펙트로그램
+            w_power_log = 10.0 * np.log10(np.abs(W) ** 2 + self._eps)
+            im0 = axes[0].imshow(w_power_log.T, origin='lower', aspect='auto', cmap='magma')
+            axes[0].set_title('원본 W 채널 Log-Power')
+            axes[0].set_xlabel('Time Frame')
+            axes[0].set_ylabel('Freq Bin')
+            fig.colorbar(im0, ax=axes[0], fraction=0.025, pad=0.01)
+
+            # 2) 프레임별 확산도
+            axes[1].plot(diffuseness, color='tab:blue', linewidth=1.2)
+            axes[1].set_title('프레임별 Diffuseness')
+            axes[1].set_xlabel('Time Frame')
+            axes[1].set_ylabel('Diffuseness')
+            axes[1].set_ylim(0.0, 1.0)
+            axes[1].grid(True, alpha=0.3)
+
+            # 3) 적용된 마스크
+            im2 = axes[2].imshow(mask.T, origin='lower', aspect='auto', cmap='viridis', vmin=0.0, vmax=1.0)
+            axes[2].set_title('Adaptive Mask (T-F)')
+            axes[2].set_xlabel('Time Frame')
+            axes[2].set_ylabel('Freq Bin')
+            fig.colorbar(im2, ax=axes[2], fraction=0.025, pad=0.01)
+
+            fig.tight_layout()
+            save_path = os.path.join(os.getcwd(), 'l2_adaptive_mask_debug.png')
+            fig.savefig(save_path, dpi=150)
+            plot.close(fig)
+            self._debug_plot_saved = True
+            print('[L2 Debug] 시각화 저장 완료: {}'.format(save_path))
+        except Exception as e:
+            print('[L2 Debug] 시각화 저장 실패: {}'.format(e))
+
+    @staticmethod
+    def _apply_xyz_mask_keep_w(linear_spectra, mask):
+        W_keep = linear_spectra[:, :, 0:1]
+        xyz_masked = linear_spectra[:, :, 1:4] * mask[:, :, np.newaxis]
+        return np.concatenate((W_keep, xyz_masked), axis=-1)
+
+    def _apply_foa_tf_decoupled_adaptive_softmask(self, linear_spectra):
+        if linear_spectra.shape[-1] < 4:
+            return linear_spectra
+
+        mask, diffuseness, W = self._compute_foa_adaptive_mask(linear_spectra)
+        if mask is None:
+            return linear_spectra
+
+        if not self._debug_plot_saved:
+            self._save_decoupled_l2_debug_plot(W, diffuseness, mask)
+
+        # W는 보존하고, XYZ에만 마스크 적용해 음향 정보 손실을 최소화
+        return self._apply_xyz_mask_keep_w(linear_spectra, mask)
+
     def _get_mel_spectrogram(self, linear_spectra):
         mel_feat = np.zeros((linear_spectra.shape[0], self._nb_mel_bins, linear_spectra.shape[-1]))
         for ch_cnt in range(linear_spectra.shape[-1]):
@@ -195,11 +542,16 @@ class FeatureClass:
             mel_feat[:, :, ch_cnt] = log_mel_spectra
         mel_feat = mel_feat.transpose((0, 2, 1)).reshape((linear_spectra.shape[0], -1))
         return mel_feat
-
+        #아무것도 몰라야 제대로된 경제학부야
+        #분석 결과 삼전하닉은 계속 오르고
+        #나는 영원히 배아플 예정임
+        #그래도 20대는 미장이 맞아
     def _get_foa_intensity_vectors(self, linear_spectra):
         W = linear_spectra[:, :, 0]
-        I = np.real(np.conj(W)[:, :, np.newaxis] * linear_spectra[:, :, 1:])
-        E = self._eps + (np.abs(W)**2 + ((np.abs(linear_spectra[:, :, 1:])**2).sum(-1)) / 3.0)
+        # FOA IV는 항상 XYZ(1:4)만 사용한다. (task36의 saliency 5번째 채널은 제외)
+        xyz = linear_spectra[:, :, 1:4]
+        I = np.real(np.conj(W)[:, :, np.newaxis] * xyz)
+        E = self._eps + (np.abs(W)**2 + ((np.abs(xyz)**2).sum(-1)) / 3.0)
 
         I_norm = I / E[:, :, np.newaxis]
         I_norm_mel = np.transpose(np.dot(np.transpose(I_norm, (0, 2, 1)), self._mel_wts), (0, 2, 1))
@@ -251,6 +603,23 @@ class FeatureClass:
         if self._l2_enable and self._dataset == 'foa':
             if self._l2_mode == 'foa_tf_softmask':
                 audio_spec = self._apply_foa_tf_softmask(audio_spec)
+            elif self._l2_mode == 'foa_tf_adaptive_softmask':
+                audio_spec = self._apply_foa_tf_adaptive_softmask(audio_spec)
+            elif self._l2_mode == 'foa_tf_decoupled_adaptive_softmask':
+                audio_spec = self._apply_foa_tf_decoupled_adaptive_softmask(audio_spec)
+            elif self._l2_mode == 'foa_tf_iv_adaptive_residual':
+                # task34는 멜 특징 보존을 위해 스펙트럼은 원본 유지하고, IV에서만 보강을 적용한다.
+                pass
+            elif self._l2_mode == 'foa_tf_iv_adaptive_residual_dynamic':
+                # task35도 멜 특징 보존을 위해 스펙트럼은 원본 유지하고, IV에서만 보강을 적용한다.
+                pass
+            elif self._l2_mode == 'foa_l3_guided_reinforcement':
+                file_id = os.path.basename(audio_filename).split('.')[0]
+                l3_preds = self._load_l3_preds_for_file(file_id)
+                audio_spec = self._apply_foa_l3_guided_reinforcement(audio_spec, l3_preds)
+            elif self._l2_mode == 'foa_tf_iv_l3_aware_residual_dynamic':
+                # task37은 mel/IV 계산 단계에서만 L3-guided IV 보강을 적용한다.
+                pass
             else:
                 raise ValueError('Unsupported L2 mode: {}'.format(self._l2_mode))
         return audio_spec
@@ -417,8 +786,69 @@ class FeatureClass:
 
         feat = None
         if self._dataset == 'foa':
-            # extract intensity vectors
-            foa_iv = self._get_foa_intensity_vectors(spect)
+            if self._l2_enable and self._l2_mode in (
+                'foa_tf_iv_adaptive_residual',
+                'foa_tf_iv_adaptive_residual_dynamic',
+                'foa_tf_iv_l3_aware_residual_dynamic',
+            ):
+                # task34/35/37: mel은 보존하고, IV 경로에서만 공간 정보를 능동 보강
+                mask, diffuseness, W = self._compute_foa_adaptive_mask(spect)
+                if mask is None:
+                    foa_iv = self._get_foa_intensity_vectors(spect)
+                else:
+                    if not self._debug_plot_saved:
+                        self._save_decoupled_l2_debug_plot(W, diffuseness, mask)
+
+                    foa_iv_raw = self._get_foa_intensity_vectors(spect)
+                    spect_masked = self._apply_xyz_mask_keep_w(spect, mask)
+                    foa_iv_masked = self._get_foa_intensity_vectors(spect_masked)
+
+                    if self._l2_mode == 'foa_tf_iv_adaptive_residual':
+                        blend_lambda = np.clip(self._l2_iv_blend_lambda, 0.0, 1.0)
+                        foa_iv = foa_iv_raw + blend_lambda * (foa_iv_masked - foa_iv_raw)
+                    elif self._l2_mode == 'foa_tf_iv_adaptive_residual_dynamic':
+                        # task35: 프레임 확산도 기반 동적 블렌딩(확산도가 높을수록 공간 보강을 더 적용)
+                        lam_min = np.clip(self._l2_iv_blend_lambda_min, 0.0, 1.0)
+                        lam_max = np.clip(self._l2_iv_blend_lambda_max, 0.0, 1.0)
+                        if lam_max < lam_min:
+                            lam_min, lam_max = lam_max, lam_min
+                        gamma = max(self._l2_iv_blend_gamma, 0.0)
+                        frame_lambda = lam_min + (lam_max - lam_min) * (diffuseness[:, np.newaxis] ** gamma)
+                        foa_iv = foa_iv_raw + frame_lambda * (foa_iv_masked - foa_iv_raw)
+                    else:
+                        # task37: adaptive residual + L3 prior confidence 기반 능동 강화
+                        file_id = os.path.basename(_wav_path).split('.')[0]
+                        l3_preds = self._load_l3_preds_for_file(file_id)
+                        has_l3_prior = l3_preds is not None and len(l3_preds) > 0
+                        saliency = self._build_l3_guided_saliency_map(spect, l3_preds)
+
+                        if has_l3_prior:
+                            spect_guided = self._apply_l3_saliency_xyz_boost(spect_masked, saliency)
+                        else:
+                            spect_guided = spect_masked
+                        foa_iv_guided = self._get_foa_intensity_vectors(spect_guided)
+
+                        lam_min = np.clip(self._l2_iv_blend_lambda_min, 0.0, 1.0)
+                        lam_max = np.clip(self._l2_iv_blend_lambda_max, 0.0, 1.0)
+                        if lam_max < lam_min:
+                            lam_min, lam_max = lam_max, lam_min
+                        gamma = max(self._l2_iv_blend_gamma, 0.0)
+                        frame_lambda = lam_min + (lam_max - lam_min) * (diffuseness[:, np.newaxis] ** gamma)
+
+                        frame_conf = self._compute_l3_frame_confidence(saliency, has_l3_prior)
+                        conf_gamma = max(self._l3_iv_conf_gamma, 0.0)
+                        conf_floor = np.clip(self._l3_iv_conf_floor, 0.0, 1.0)
+                        conf_scale = conf_floor + (1.0 - conf_floor) * (frame_conf[:, np.newaxis] ** conf_gamma)
+                        frame_lambda = frame_lambda * conf_scale
+
+                        delta = foa_iv_guided - foa_iv_raw
+                        delta_clip = max(self._l3_iv_delta_clip, 0.0)
+                        if delta_clip > 0.0:
+                            delta = np.clip(delta, -delta_clip, delta_clip)
+                        foa_iv = foa_iv_raw + frame_lambda * delta
+            else:
+                # extract intensity vectors
+                foa_iv = self._get_foa_intensity_vectors(spect)
             feat = np.concatenate((mel_spect, foa_iv), axis=-1)
         elif self._dataset == 'mic':
             if self._use_salsalite:
@@ -818,4 +1248,3 @@ def delete_and_create_folder(folder_name):
     if os.path.exists(folder_name) and os.path.isdir(folder_name):
         shutil.rmtree(folder_name)
     os.makedirs(folder_name, exist_ok=True)
-

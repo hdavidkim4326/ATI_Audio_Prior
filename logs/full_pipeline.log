@@ -786,3 +786,263 @@ epoch: 158, time: 6.91/122.65, train_loss: 0.0085, val_loss: 0.0910, F/AE/Dist_e
 
 [Debug] ================== Epoch 159 시작 ==================
   -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 159, time: 6.31/122.46, train_loss: 0.0082, val_loss: 0.0818, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.46/0.49/0.27/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 160 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 160, time: 6.73/125.19, train_loss: 0.0081, val_loss: 0.0841, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.48/0.51/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 161 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 161, time: 6.27/124.50, train_loss: 0.0077, val_loss: 0.0807, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/41.06/0.52/0.30/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 162 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 162, time: 6.95/120.51, train_loss: 0.0074, val_loss: 0.0900, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.09/0.53/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 163 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 163, time: 5.34/117.93, train_loss: 0.0074, val_loss: 0.0796, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.91/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 164 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 164, time: 5.09/119.14, train_loss: 0.0071, val_loss: 0.0835, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.43/0.51/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 165 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 165, time: 4.81/118.66, train_loss: 0.0068, val_loss: 0.0806, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/36.86/0.52/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 166 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 166, time: 4.83/115.03, train_loss: 0.0067, val_loss: 0.0804, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.63/0.51/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 167 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 167, time: 5.53/120.48, train_loss: 0.0066, val_loss: 0.0791, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.93/0.54/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 168 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 168, time: 5.01/82.56, train_loss: 0.0065, val_loss: 0.0709, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.26/0.52/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 169 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 169, time: 4.98/83.37, train_loss: 0.0067, val_loss: 0.0767, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.56/0.52/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 170 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 170, time: 4.77/113.40, train_loss: 0.0067, val_loss: 0.0808, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.62/0.51/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 171 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 171, time: 4.67/109.89, train_loss: 0.0069, val_loss: 0.0842, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/43.28/0.54/0.29/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 172 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 172, time: 4.54/114.04, train_loss: 0.0068, val_loss: 0.0791, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/39.05/0.54/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 173 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 173, time: 4.50/89.58, train_loss: 0.0069, val_loss: 0.0779, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.03/0.55/0.31/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 174 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 174, time: 4.89/112.70, train_loss: 0.0069, val_loss: 0.0854, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.63/0.52/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 175 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 175, time: 4.65/81.10, train_loss: 0.0071, val_loss: 0.0760, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.61/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 176 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 176, time: 4.99/113.25, train_loss: 0.0111, val_loss: 0.0835, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/42.66/0.52/0.27/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 177 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 177, time: 5.01/84.18, train_loss: 0.0186, val_loss: 0.0808, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/40.01/0.56/0.28/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 178 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 178, time: 4.52/118.63, train_loss: 0.0204, val_loss: 0.0967, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/37.14/0.53/0.28/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 179 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 179, time: 8.74/117.82, train_loss: 0.0168, val_loss: 0.0862, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.75/0.53/0.31/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 180 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 180, time: 5.03/110.33, train_loss: 0.0140, val_loss: 0.0745, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/40.02/0.54/0.31/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 181 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 181, time: 4.68/115.07, train_loss: 0.0095, val_loss: 0.0730, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/40.57/0.50/0.30/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 182 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 182, time: 4.73/115.00, train_loss: 0.0085, val_loss: 0.0785, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.30/0.48/0.27/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 183 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 183, time: 4.64/114.09, train_loss: 0.0075, val_loss: 0.0863, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.72/0.49/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 184 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 184, time: 5.43/114.21, train_loss: 0.0072, val_loss: 0.0818, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.84/0.53/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 185 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 185, time: 5.01/113.37, train_loss: 0.0068, val_loss: 0.0804, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/46.35/0.61/0.30/0.48, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 186 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 186, time: 5.11/116.30, train_loss: 0.0067, val_loss: 0.0809, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.86/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 187 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 187, time: 6.09/121.44, train_loss: 0.0067, val_loss: 0.0877, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/42.74/0.55/0.29/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 188 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 188, time: 5.12/116.31, train_loss: 0.0065, val_loss: 0.0835, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/42.45/0.56/0.29/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 189 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 189, time: 4.78/114.55, train_loss: 0.0063, val_loss: 0.0829, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.54/0.49/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 190 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 190, time: 4.98/116.11, train_loss: 0.0062, val_loss: 0.0790, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/39.96/0.57/0.32/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 191 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 191, time: 5.06/114.95, train_loss: 0.0063, val_loss: 0.0795, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/40.43/0.55/0.32/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 192 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 192, time: 4.68/92.39, train_loss: 0.0061, val_loss: 0.0827, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.58/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 193 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 193, time: 4.64/112.45, train_loss: 0.0061, val_loss: 0.0823, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/40.58/0.54/0.31/0.50, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 194 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 194, time: 4.88/111.98, train_loss: 0.0062, val_loss: 0.0748, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.43/0.51/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 195 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 195, time: 5.02/111.75, train_loss: 0.0061, val_loss: 0.0803, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/37.42/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 196 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 196, time: 4.33/113.52, train_loss: 0.0061, val_loss: 0.0829, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.80/0.53/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 197 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 197, time: 4.43/114.72, train_loss: 0.0059, val_loss: 0.0855, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/38.59/0.51/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 198 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 198, time: 4.64/112.66, train_loss: 0.0059, val_loss: 0.0815, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.54/0.50/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 199 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 199, time: 4.62/113.18, train_loss: 0.0060, val_loss: 0.0808, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.36/0.51/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 200 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 200, time: 4.68/113.83, train_loss: 0.0061, val_loss: 0.0785, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.86/0.51/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 201 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 201, time: 4.72/115.33, train_loss: 0.0060, val_loss: 0.0792, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.08/0.51/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 202 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 202, time: 4.97/115.00, train_loss: 0.0060, val_loss: 0.0774, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.37/0.50/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 203 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 203, time: 5.18/113.27, train_loss: 0.0059, val_loss: 0.0833, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.26/0.53/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 204 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 204, time: 5.17/112.91, train_loss: 0.0060, val_loss: 0.0839, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.79/0.53/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 205 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 205, time: 4.62/113.77, train_loss: 0.0060, val_loss: 0.0871, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/39.24/0.52/0.28/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 206 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 206, time: 5.17/112.38, train_loss: 0.0059, val_loss: 0.0903, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/38.11/0.54/0.30/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 207 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 207, time: 4.57/114.78, train_loss: 0.0058, val_loss: 0.0892, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/39.92/0.54/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 208 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 208, time: 4.50/112.19, train_loss: 0.0057, val_loss: 0.0859, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/39.44/0.52/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 209 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 209, time: 6.15/118.16, train_loss: 0.0057, val_loss: 0.0858, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.47/0.58/0.31/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 210 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 210, time: 4.62/111.97, train_loss: 0.0059, val_loss: 0.0843, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/46.61/0.61/0.30/0.51, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 211 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 211, time: 4.39/113.99, train_loss: 0.0056, val_loss: 0.0859, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.15/0.53/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 212 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 212, time: 4.19/114.23, train_loss: 0.0059, val_loss: 0.0746, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.81/0.49/0.27/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 213 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 213, time: 4.52/112.38, train_loss: 0.0059, val_loss: 0.0734, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/36.66/0.52/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 214 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 214, time: 4.56/112.67, train_loss: 0.0058, val_loss: 0.0887, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.33/0.54/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 215 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 215, time: 4.36/112.85, train_loss: 0.0059, val_loss: 0.0950, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/39.34/0.51/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 216 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 216, time: 4.32/112.89, train_loss: 0.0063, val_loss: 0.0889, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.30/0.49/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 217 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 217, time: 4.44/113.95, train_loss: 0.0062, val_loss: 0.0871, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.52/0.52/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 218 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 218, time: 4.60/113.28, train_loss: 0.0064, val_loss: 0.0764, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.12/0.49/0.28/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 219 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 219, time: 5.01/117.60, train_loss: 0.0062, val_loss: 0.0897, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.83/0.50/0.29/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 220 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 220, time: 4.91/114.55, train_loss: 0.0058, val_loss: 0.0879, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/38.50/0.55/0.30/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 221 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 221, time: 5.00/114.33, train_loss: 0.0055, val_loss: 0.0862, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/39.50/0.48/0.27/0.53, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 222 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 222, time: 4.45/117.30, train_loss: 0.0054, val_loss: 0.0870, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/39.54/0.51/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 223 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 223, time: 6.53/113.31, train_loss: 0.0055, val_loss: 0.0844, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.99/0.53/0.29/0.54, best_val_epoch: 142 (0.14/38.86/0.52/0.29/0.53)
+
+[Debug] ================== Epoch 224 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...

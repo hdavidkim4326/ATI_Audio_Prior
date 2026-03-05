@@ -1,0 +1,16 @@
+=== Eval Test-Only Summary ===
+완료시각: 2026-03-01 13:51:13
+task_id: 33
+job_id: decoupled33_0301_1539
+model_path: models_audio/33_decoupled33_0301_1539_dev_split0_multiaccdoa_foa_model.h5
+output_dir: results_audio/33_decoupled33_0301_1539_dev_split0_multiaccdoa_foa_20260301134941_testonly
+
+[최종 지표]
+test_loss=0.0567
+SELD=0.5219
+F-score=0.1353
+AngularError=37.7805
+DistanceError=0.4904
+RelativeDistanceError=0.2550
+ER=0.7188
+LR=0.2898

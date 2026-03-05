@@ -1,0 +1,15 @@
+=== Task35 요약 ===
+완료시각: 2026-03-02 14:44:18
+로그: logs/task35_ivresdyn35_0302_0523_20260302_052341.log
+결과폴더: results_audio/35_ivresdyn35_0302_0523_dev_split0_multiaccdoa_foa_20260302053348_test
+디버그 플롯: /home/hdavidkim/Audio/ATI_Audio_Prior/l2_adaptive_mask_debug.png
+
+[최종 지표]
+SELD score (early stopping metric): 0.48 [0.34, 0.50]
+SED metrics: F-score: 12.5 [9.80, 15.22]
+DOA metrics: Angular error: 44.7 [41.87 , 54.94]
+Distance metrics: 0.54 [0.42 , 0.72]
+Relative Distance metrics: 0.30 [0.21 , 0.47]
+
+[모델 파일 후보]
+models_audio/35_ivresdyn35_0302_0523_dev_split0_multiaccdoa_foa_model.h5

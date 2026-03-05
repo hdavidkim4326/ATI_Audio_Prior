@@ -1,0 +1,1795 @@
+=== 2026-03-01 15:39:44 Task33(Decoupled Adaptive L2) 시작 ===
+TASK_ID=33, JOB_ID=decoupled33_0301_1539, CUDA_VISIBLE_DEVICES=1, RUN_FEAT=auto
+LOG_FILE=logs/task33_decoupled33_0301_1539_20260301_153944.log
+=== 2026-03-01 15:39:44 Step 1: Feature Extraction (task 33) ===
+SET: 33
+FOA + multi ACCDOA + L2 Decoupled Adaptive Softmask
+
+	quick_test: False
+	finetune_mode: True
+	pretrained_model_weights: 3_1_dev_split0_multiaccdoa_foa_model.h5
+	dataset_dir: ../DCASE2024_SELD_dataset/
+	feat_label_dir: ../DCASE2024_SELD_dataset/seld_feat_label/
+	model_dir: models_audio
+	dcase_output_dir: results_audio
+	mode: dev
+	dataset: foa
+	fs: 24000
+	hop_len_s: 0.02
+	label_hop_len_s: 0.1
+	max_audio_len_s: 60
+	nb_mel_bins: 64
+	use_salsalite: False
+	fmin_doa_salsalite: 50
+	fmax_doa_salsalite: 2000
+	fmax_spectra_salsalite: 9000
+	l2_enable: True
+	l2_mode: foa_tf_decoupled_adaptive_softmask
+	l2_mask_tau: 0.05
+	l2_mask_tau_base: 0.2
+	l2_mask_k: 10.0
+	l2_diffuseness_alpha: 0.5
+	l2_iv_blend_lambda: 0.5
+	modality: audio
+	multi_accdoa: True
+	thresh_unify: 15
+	label_sequence_length: 50
+	batch_size: 128
+	dropout_rate: 0.05
+	nb_cnn2d_filt: 64
+	f_pool_size: [4, 4, 2]
+	nb_heads: 8
+	nb_self_attn_layers: 2
+	nb_transformer_layers: 2
+	nb_rnn_layers: 2
+	rnn_size: 128
+	nb_fnn_layers: 1
+	fnn_size: 128
+	nb_epochs: 250
+	lr: 0.001
+	average: macro
+	segment_based_metrics: False
+	evaluate_distance: True
+	lad_doa_thresh: 20
+	lad_dist_thresh: inf
+	lad_reldist_thresh: 1.0
+	feature_sequence_length: 250
+	t_pool_size: [5, 1, 1]
+	patience: 250
+	unique_classes: 13
+../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled folder does not exist, creating it.
+Extracting spectrogram:
+		aud_dir ../DCASE2024_SELD_dataset/foa_dev
+		desc_dir ../DCASE2024_SELD_dataset/metadata_dev
+		feat_dir ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 50896 (\N{HANGUL SYLLABLE WEON}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 48376 (\N{HANGUL SYLLABLE BON}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 52292 (\N{HANGUL SYLLABLE CAE}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 45328 (\N{HANGUL SYLLABLE NEOL}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 54532 (\N{HANGUL SYLLABLE PEU}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 47112 (\N{HANGUL SYLLABLE RE}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 51076 (\N{HANGUL SYLLABLE IM}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:278: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from current font.
+  fig.tight_layout()
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 50896 (\N{HANGUL SYLLABLE WEON}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 48376 (\N{HANGUL SYLLABLE BON}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 52292 (\N{HANGUL SYLLABLE CAE}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 45328 (\N{HANGUL SYLLABLE NEOL}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 54532 (\N{HANGUL SYLLABLE PEU}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 47112 (\N{HANGUL SYLLABLE RE}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 51076 (\N{HANGUL SYLLABLE IM}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+/home/hdavidkim/Audio/ATI_Audio_Prior/cls_feature_class.py:280: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from current font.
+  fig.savefig(save_path, dpi=150)
+[L2 Debug] 시각화 저장 완료: /home/hdavidkim/Audio/ATI_Audio_Prior/l2_adaptive_mask_debug.png
+0: fold3_room6_mix007.wav, (10729, 448)
+1: fold3_room6_mix004.wav, (14475, 448)
+2: fold3_room6_mix006.wav, (5072, 448)
+3: fold3_room13_mix008.wav, (11792, 448)
+4: fold3_room4_mix008.wav, (8319, 448)
+5: fold3_room9_mix008.wav, (10693, 448)
+6: fold3_room9_mix006.wav, (7436, 448)
+7: fold3_room13_mix009.wav, (19430, 448)
+8: fold3_room13_mix002.wav, (14833, 448)
+9: fold3_room4_mix001.wav, (6454, 448)
+10: fold3_room12_mix002.wav, (11235, 448)
+11: fold3_room4_mix004.wav, (7986, 448)
+12: fold3_room4_mix007.wav, (11213, 448)
+13: fold3_room9_mix004.wav, (7324, 448)
+14: fold3_room7_mix004.wav, (16420, 448)
+15: fold3_room7_mix001.wav, (7729, 448)
+16: fold3_room13_mix007.wav, (12216, 448)
+17: fold3_room12_mix006.wav, (7751, 448)
+18: fold3_room9_mix002.wav, (8612, 448)
+19: fold3_room12_mix003.wav, (17739, 448)
+20: fold3_room9_mix007.wav, (8019, 448)
+21: fold3_room14_mix001.wav, (5325, 448)
+22: fold3_room13_mix003.wav, (10201, 448)
+23: fold3_room12_mix004.wav, (16757, 448)
+24: fold3_room12_mix008.wav, (12255, 448)
+25: fold3_room12_mix001.wav, (12664, 448)
+26: fold3_room13_mix001.wav, (13155, 448)
+27: fold3_room7_mix002.wav, (16271, 448)
+28: fold3_room13_mix006.wav, (15390, 448)
+29: fold3_room13_mix005.wav, (2670, 448)
+30: fold3_room14_mix003.wav, (2043, 448)
+31: fold3_room12_mix005.wav, (4742, 448)
+32: fold3_room7_mix005.wav, (13021, 448)
+33: fold3_room7_mix003.wav, (10917, 448)
+34: fold3_room6_mix005.wav, (13699, 448)
+35: fold3_room7_mix006.wav, (16830, 448)
+36: fold3_room14_mix002.wav, (3873, 448)
+37: fold3_room4_mix006.wav, (9089, 448)
+38: fold3_room9_mix005.wav, (11491, 448)
+39: fold3_room6_mix002.wav, (12889, 448)
+40: fold3_room6_mix003.wav, (16096, 448)
+41: fold3_room6_mix001.wav, (10990, 448)
+42: fold3_room4_mix005.wav, (5472, 448)
+43: fold3_room12_mix007.wav, (12437, 448)
+44: fold3_room9_mix003.wav, (8226, 448)
+45: fold3_room14_mix004.wav, (3282, 448)
+46: fold3_room9_mix001.wav, (9037, 448)
+47: fold3_room13_mix004.wav, (7778, 448)
+48: fold3_room12_mix009.wav, (5189, 448)
+49: fold3_room12_mix010.wav, (9639, 448)
+0: fold4_room16_mix001.wav, (10990, 448)
+1: fold4_room2_mix006.wav, (17453, 448)
+2: fold4_room2_mix002.wav, (13649, 448)
+3: fold4_room8_mix002.wav, (9392, 448)
+4: fold4_room8_mix006.wav, (11252, 448)
+5: fold4_room15_mix005.wav, (6347, 448)
+6: fold4_room16_mix012.wav, (7057, 448)
+7: fold4_room2_mix004.wav, (8516, 448)
+8: fold4_room16_mix003.wav, (6557, 448)
+9: fold4_room2_mix005.wav, (9180, 448)
+10: fold4_room15_mix009.wav, (11186, 448)
+11: fold4_room10_mix005.wav, (5801, 448)
+12: fold4_room16_mix008.wav, (2276, 448)
+13: fold4_room15_mix006.wav, (14937, 448)
+14: fold4_room15_mix003.wav, (13630, 448)
+15: fold4_room15_mix002.wav, (9025, 448)
+16: fold4_room15_mix008.wav, (7624, 448)
+17: fold4_room2_mix001.wav, (7464, 448)
+18: fold4_room16_mix006.wav, (8797, 448)
+19: fold4_room2_mix003.wav, (12670, 448)
+20: fold4_room16_mix002.wav, (6336, 448)
+21: fold4_room15_mix007.wav, (11535, 448)
+22: fold4_room8_mix001.wav, (10407, 448)
+23: fold4_room15_mix004.wav, (14333, 448)
+24: fold4_room16_mix010.wav, (6595, 448)
+25: fold4_room10_mix007.wav, (7216, 448)
+26: fold4_room8_mix005.wav, (8763, 448)
+27: fold4_room10_mix001.wav, (6893, 448)
+28: fold4_room16_mix013.wav, (6040, 448)
+29: fold4_room8_mix004.wav, (5314, 448)
+30: fold4_room16_mix014.wav, (4800, 448)
+31: fold4_room10_mix003.wav, (7012, 448)
+32: fold4_room16_mix005.wav, (2389, 448)
+33: fold4_room10_mix008.wav, (7348, 448)
+34: fold4_room8_mix008.wav, (8362, 448)
+35: fold4_room10_mix004.wav, (7403, 448)
+36: fold4_room8_mix003.wav, (10675, 448)
+37: fold4_room8_mix007.wav, (6680, 448)
+38: fold4_room15_mix001.wav, (8174, 448)
+39: fold4_room16_mix004.wav, (7094, 448)
+40: fold4_room15_mix010.wav, (28461, 448)
+41: fold4_room8_mix009.wav, (17957, 448)
+42: fold4_room10_mix009.wav, (8100, 448)
+43: fold4_room16_mix011.wav, (8769, 448)
+44: fold4_room10_mix006.wav, (8524, 448)
+45: fold4_room16_mix007.wav, (10226, 448)
+46: fold4_room16_mix009.wav, (4203, 448)
+47: fold4_room10_mix002.wav, (7245, 448)
+0: fold4_room23_mix004.wav, (5110, 448)
+1: fold4_room23_mix005.wav, (3715, 448)
+2: fold4_room23_mix007.wav, (6300, 448)
+3: fold4_room23_mix012.wav, (4750, 448)
+4: fold4_room23_mix001.wav, (3035, 448)
+5: fold4_room24_mix003.wav, (4865, 448)
+6: fold4_room24_mix016.wav, (3990, 448)
+7: fold4_room23_mix006.wav, (5235, 448)
+8: fold4_room23_mix008.wav, (2650, 448)
+9: fold4_room23_mix009.wav, (3250, 448)
+10: fold4_room24_mix002.wav, (5270, 448)
+11: fold4_room24_mix008.wav, (4850, 448)
+12: fold4_room23_mix002.wav, (2235, 448)
+13: fold4_room24_mix005.wav, (6865, 448)
+14: fold4_room24_mix014.wav, (6280, 448)
+15: fold4_room24_mix001.wav, (8945, 448)
+16: fold4_room23_mix011.wav, (5750, 448)
+17: fold4_room24_mix013.wav, (2860, 448)
+18: fold4_room24_mix015.wav, (3640, 448)
+19: fold4_room24_mix004.wav, (4755, 448)
+20: fold4_room24_mix012.wav, (7840, 448)
+21: fold4_room23_mix014.wav, (6000, 448)
+22: fold4_room23_mix003.wav, (2100, 448)
+23: fold4_room24_mix009.wav, (3875, 448)
+24: fold4_room23_mix013.wav, (3000, 448)
+25: fold4_room24_mix011.wav, (3165, 448)
+26: fold4_room23_mix010.wav, (3550, 448)
+27: fold4_room24_mix006.wav, (7050, 448)
+28: fold4_room24_mix010.wav, (3635, 448)
+29: fold4_room24_mix007.wav, (4450, 448)
+0: fold3_room22_mix005.wav, (6675, 448)
+1: fold3_room21_mix026.wav, (12995, 448)
+2: fold3_room21_mix012.wav, (7740, 448)
+3: fold3_room21_mix014.wav, (3400, 448)
+4: fold3_room21_mix019.wav, (2450, 448)
+5: fold3_room21_mix005.wav, (3400, 448)
+6: fold3_room21_mix029.wav, (10305, 448)
+7: fold3_room21_mix011.wav, (2930, 448)
+8: fold3_room21_mix028.wav, (5000, 448)
+9: fold3_room21_mix027.wav, (5565, 448)
+10: fold3_room22_mix002.wav, (5975, 448)
+11: fold3_room22_mix010.wav, (11250, 448)
+12: fold3_room21_mix010.wav, (4725, 448)
+13: fold3_room21_mix002.wav, (7000, 448)
+14: fold3_room21_mix017.wav, (6600, 448)
+15: fold3_room22_mix011.wav, (9250, 448)
+16: fold3_room21_mix004.wav, (1625, 448)
+17: fold3_room22_mix003.wav, (3475, 448)
+18: fold3_room21_mix013.wav, (3250, 448)
+19: fold3_room21_mix024.wav, (4200, 448)
+20: fold3_room22_mix004.wav, (5240, 448)
+21: fold3_room21_mix016.wav, (3760, 448)
+22: fold3_room21_mix003.wav, (5900, 448)
+23: fold3_room21_mix007.wav, (3840, 448)
+24: fold3_room22_mix008.wav, (4750, 448)
+25: fold3_room21_mix022.wav, (8750, 448)
+26: fold3_room21_mix015.wav, (5685, 448)
+27: fold3_room21_mix023.wav, (5475, 448)
+28: fold3_room22_mix006.wav, (3000, 448)
+29: fold3_room22_mix007.wav, (6305, 448)
+30: fold3_room21_mix020.wav, (6380, 448)
+31: fold3_room21_mix006.wav, (1895, 448)
+32: fold3_room21_mix018.wav, (6500, 448)
+33: fold3_room21_mix009.wav, (5510, 448)
+34: fold3_room21_mix021.wav, (6500, 448)
+35: fold3_room22_mix001.wav, (3750, 448)
+36: fold3_room22_mix009.wav, (4270, 448)
+37: fold3_room21_mix008.wav, (7775, 448)
+38: fold3_room21_mix025.wav, (12150, 448)
+39: fold3_room21_mix001.wav, (4470, 448)
+442.10990023612976
+../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled_norm folder does not exist, creating it.
+Estimating weights for normalizing feature files:
+		feat_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled
+0: fold4_room10_mix006.npy
+1: fold4_room8_mix002.npy
+2: fold3_room9_mix006.npy
+3: fold4_room16_mix014.npy
+4: fold4_room24_mix011.npy
+5: fold4_room23_mix010.npy
+6: fold4_room23_mix012.npy
+7: fold4_room10_mix002.npy
+8: fold3_room4_mix006.npy
+9: fold4_room8_mix009.npy
+10: fold3_room21_mix012.npy
+11: fold4_room15_mix010.npy
+12: fold3_room6_mix001.npy
+13: fold4_room16_mix013.npy
+14: fold3_room13_mix006.npy
+15: fold4_room24_mix009.npy
+16: fold3_room9_mix008.npy
+17: fold3_room13_mix001.npy
+18: fold3_room7_mix006.npy
+19: fold3_room21_mix015.npy
+20: fold4_room15_mix003.npy
+21: fold3_room21_mix007.npy
+22: fold4_room15_mix006.npy
+23: fold4_room24_mix006.npy
+24: fold3_room22_mix011.npy
+25: fold4_room8_mix007.npy
+26: fold4_room16_mix008.npy
+27: fold4_room24_mix005.npy
+28: fold4_room23_mix013.npy
+29: fold4_room23_mix005.npy
+30: fold4_room16_mix005.npy
+31: fold4_room23_mix004.npy
+32: fold3_room21_mix026.npy
+33: fold4_room2_mix005.npy
+34: fold3_room12_mix001.npy
+35: fold3_room21_mix004.npy
+36: fold4_room2_mix004.npy
+37: fold3_room7_mix003.npy
+38: fold4_room24_mix010.npy
+39: fold3_room9_mix007.npy
+40: fold4_room23_mix002.npy
+41: fold3_room21_mix006.npy
+42: fold3_room22_mix008.npy
+43: fold3_room6_mix003.npy
+44: fold4_room24_mix008.npy
+45: fold4_room16_mix004.npy
+46: fold3_room21_mix014.npy
+47: fold4_room10_mix001.npy
+48: fold3_room7_mix004.npy
+49: fold4_room10_mix009.npy
+50: fold3_room22_mix007.npy
+51: fold3_room14_mix001.npy
+52: fold4_room10_mix007.npy
+53: fold4_room15_mix007.npy
+54: fold4_room16_mix012.npy
+55: fold3_room13_mix008.npy
+56: fold3_room22_mix004.npy
+57: fold3_room21_mix002.npy
+58: fold3_room21_mix005.npy
+59: fold4_room8_mix001.npy
+60: fold4_room24_mix013.npy
+61: fold3_room21_mix029.npy
+62: fold3_room12_mix010.npy
+63: fold3_room22_mix003.npy
+64: fold4_room24_mix003.npy
+65: fold3_room6_mix002.npy
+66: fold4_room23_mix009.npy
+67: fold4_room24_mix012.npy
+68: fold4_room23_mix003.npy
+69: fold3_room12_mix008.npy
+70: fold4_room23_mix014.npy
+71: fold3_room13_mix002.npy
+72: fold3_room12_mix003.npy
+73: fold4_room16_mix010.npy
+74: fold3_room13_mix004.npy
+75: fold4_room15_mix001.npy
+76: fold4_room15_mix005.npy
+77: fold4_room16_mix011.npy
+78: fold3_room12_mix006.npy
+79: fold3_room21_mix008.npy
+80: fold3_room21_mix024.npy
+81: fold4_room8_mix008.npy
+82: fold3_room21_mix009.npy
+83: fold3_room22_mix002.npy
+84: fold3_room9_mix005.npy
+85: fold4_room10_mix004.npy
+86: fold3_room6_mix007.npy
+87: fold3_room9_mix001.npy
+88: fold4_room16_mix006.npy
+89: fold3_room6_mix004.npy
+90: fold4_room24_mix016.npy
+91: fold3_room7_mix005.npy
+92: fold4_room15_mix009.npy
+93: fold3_room9_mix003.npy
+94: fold3_room9_mix004.npy
+95: fold4_room23_mix011.npy
+96: fold4_room24_mix004.npy
+97: fold4_room16_mix007.npy
+98: fold3_room6_mix005.npy
+99: fold3_room12_mix005.npy
+100: fold3_room21_mix020.npy
+101: fold4_room8_mix004.npy
+102: fold3_room12_mix007.npy
+103: fold4_room2_mix001.npy
+104: fold3_room7_mix001.npy
+105: fold3_room14_mix003.npy
+106: fold3_room13_mix005.npy
+107: fold3_room21_mix021.npy
+108: fold3_room21_mix011.npy
+109: fold3_room13_mix007.npy
+110: fold4_room2_mix006.npy
+111: fold4_room16_mix003.npy
+112: fold3_room6_mix006.npy
+113: fold3_room13_mix003.npy
+114: fold4_room2_mix003.npy
+115: fold3_room4_mix004.npy
+116: fold3_room21_mix003.npy
+117: fold4_room23_mix008.npy
+118: fold3_room21_mix010.npy
+119: fold4_room16_mix009.npy
+120: fold3_room4_mix007.npy
+121: fold4_room24_mix007.npy
+122: fold3_room21_mix019.npy
+123: fold3_room21_mix027.npy
+124: fold4_room8_mix005.npy
+125: fold4_room24_mix002.npy
+126: fold3_room13_mix009.npy
+127: fold3_room21_mix022.npy
+128: fold3_room12_mix009.npy
+129: fold4_room15_mix008.npy
+130: fold4_room15_mix004.npy
+131: fold4_room10_mix008.npy
+132: fold4_room24_mix001.npy
+133: fold4_room2_mix002.npy
+134: fold4_room23_mix007.npy
+135: fold3_room21_mix025.npy
+136: fold4_room23_mix001.npy
+137: fold3_room21_mix017.npy
+138: fold4_room16_mix001.npy
+139: fold3_room4_mix008.npy
+140: fold3_room4_mix005.npy
+141: fold3_room22_mix001.npy
+142: fold3_room21_mix013.npy
+143: fold3_room9_mix002.npy
+144: fold3_room21_mix023.npy
+145: fold4_room15_mix002.npy
+146: fold3_room21_mix016.npy
+147: fold3_room22_mix010.npy
+148: fold4_room16_mix002.npy
+149: fold3_room14_mix004.npy
+150: fold3_room7_mix002.npy
+151: fold4_room8_mix006.npy
+152: fold4_room24_mix014.npy
+153: fold3_room14_mix002.npy
+154: fold3_room12_mix004.npy
+155: fold3_room21_mix028.npy
+156: fold3_room21_mix018.npy
+157: fold4_room10_mix005.npy
+158: fold3_room22_mix005.npy
+159: fold3_room21_mix001.npy
+160: fold4_room24_mix015.npy
+161: fold3_room4_mix001.npy
+162: fold4_room10_mix003.npy
+163: fold4_room23_mix006.npy
+164: fold3_room22_mix009.npy
+165: fold3_room22_mix006.npy
+166: fold3_room12_mix002.npy
+167: fold4_room8_mix003.npy
+Normalized_features_wts_file: ../DCASE2024_SELD_dataset/seld_feat_label/foa_l2foa_decoupled_wts. Saved.
+Normalizing feature files:
+		feat_dir_norm ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled_norm
+0: fold4_room10_mix006.npy
+1: fold4_room8_mix002.npy
+2: fold3_room9_mix006.npy
+3: fold4_room16_mix014.npy
+4: fold4_room24_mix011.npy
+5: fold4_room23_mix010.npy
+6: fold4_room23_mix012.npy
+7: fold4_room10_mix002.npy
+8: fold3_room4_mix006.npy
+9: fold4_room8_mix009.npy
+10: fold3_room21_mix012.npy
+11: fold4_room15_mix010.npy
+12: fold3_room6_mix001.npy
+13: fold4_room16_mix013.npy
+14: fold3_room13_mix006.npy
+15: fold4_room24_mix009.npy
+16: fold3_room9_mix008.npy
+17: fold3_room13_mix001.npy
+18: fold3_room7_mix006.npy
+19: fold3_room21_mix015.npy
+20: fold4_room15_mix003.npy
+21: fold3_room21_mix007.npy
+22: fold4_room15_mix006.npy
+23: fold4_room24_mix006.npy
+24: fold3_room22_mix011.npy
+25: fold4_room8_mix007.npy
+26: fold4_room16_mix008.npy
+27: fold4_room24_mix005.npy
+28: fold4_room23_mix013.npy
+29: fold4_room23_mix005.npy
+30: fold4_room16_mix005.npy
+31: fold4_room23_mix004.npy
+32: fold3_room21_mix026.npy
+33: fold4_room2_mix005.npy
+34: fold3_room12_mix001.npy
+35: fold3_room21_mix004.npy
+36: fold4_room2_mix004.npy
+37: fold3_room7_mix003.npy
+38: fold4_room24_mix010.npy
+39: fold3_room9_mix007.npy
+40: fold4_room23_mix002.npy
+41: fold3_room21_mix006.npy
+42: fold3_room22_mix008.npy
+43: fold3_room6_mix003.npy
+44: fold4_room24_mix008.npy
+45: fold4_room16_mix004.npy
+46: fold3_room21_mix014.npy
+47: fold4_room10_mix001.npy
+48: fold3_room7_mix004.npy
+49: fold4_room10_mix009.npy
+50: fold3_room22_mix007.npy
+51: fold3_room14_mix001.npy
+52: fold4_room10_mix007.npy
+53: fold4_room15_mix007.npy
+54: fold4_room16_mix012.npy
+55: fold3_room13_mix008.npy
+56: fold3_room22_mix004.npy
+57: fold3_room21_mix002.npy
+58: fold3_room21_mix005.npy
+59: fold4_room8_mix001.npy
+60: fold4_room24_mix013.npy
+61: fold3_room21_mix029.npy
+62: fold3_room12_mix010.npy
+63: fold3_room22_mix003.npy
+64: fold4_room24_mix003.npy
+65: fold3_room6_mix002.npy
+66: fold4_room23_mix009.npy
+67: fold4_room24_mix012.npy
+68: fold4_room23_mix003.npy
+69: fold3_room12_mix008.npy
+70: fold4_room23_mix014.npy
+71: fold3_room13_mix002.npy
+72: fold3_room12_mix003.npy
+73: fold4_room16_mix010.npy
+74: fold3_room13_mix004.npy
+75: fold4_room15_mix001.npy
+76: fold4_room15_mix005.npy
+77: fold4_room16_mix011.npy
+78: fold3_room12_mix006.npy
+79: fold3_room21_mix008.npy
+80: fold3_room21_mix024.npy
+81: fold4_room8_mix008.npy
+82: fold3_room21_mix009.npy
+83: fold3_room22_mix002.npy
+84: fold3_room9_mix005.npy
+85: fold4_room10_mix004.npy
+86: fold3_room6_mix007.npy
+87: fold3_room9_mix001.npy
+88: fold4_room16_mix006.npy
+89: fold3_room6_mix004.npy
+90: fold4_room24_mix016.npy
+91: fold3_room7_mix005.npy
+92: fold4_room15_mix009.npy
+93: fold3_room9_mix003.npy
+94: fold3_room9_mix004.npy
+95: fold4_room23_mix011.npy
+96: fold4_room24_mix004.npy
+97: fold4_room16_mix007.npy
+98: fold3_room6_mix005.npy
+99: fold3_room12_mix005.npy
+100: fold3_room21_mix020.npy
+101: fold4_room8_mix004.npy
+102: fold3_room12_mix007.npy
+103: fold4_room2_mix001.npy
+104: fold3_room7_mix001.npy
+105: fold3_room14_mix003.npy
+106: fold3_room13_mix005.npy
+107: fold3_room21_mix021.npy
+108: fold3_room21_mix011.npy
+109: fold3_room13_mix007.npy
+110: fold4_room2_mix006.npy
+111: fold4_room16_mix003.npy
+112: fold3_room6_mix006.npy
+113: fold3_room13_mix003.npy
+114: fold4_room2_mix003.npy
+115: fold3_room4_mix004.npy
+116: fold3_room21_mix003.npy
+117: fold4_room23_mix008.npy
+118: fold3_room21_mix010.npy
+119: fold4_room16_mix009.npy
+120: fold3_room4_mix007.npy
+121: fold4_room24_mix007.npy
+122: fold3_room21_mix019.npy
+123: fold3_room21_mix027.npy
+124: fold4_room8_mix005.npy
+125: fold4_room24_mix002.npy
+126: fold3_room13_mix009.npy
+127: fold3_room21_mix022.npy
+128: fold3_room12_mix009.npy
+129: fold4_room15_mix008.npy
+130: fold4_room15_mix004.npy
+131: fold4_room10_mix008.npy
+132: fold4_room24_mix001.npy
+133: fold4_room2_mix002.npy
+134: fold4_room23_mix007.npy
+135: fold3_room21_mix025.npy
+136: fold4_room23_mix001.npy
+137: fold3_room21_mix017.npy
+138: fold4_room16_mix001.npy
+139: fold3_room4_mix008.npy
+140: fold3_room4_mix005.npy
+141: fold3_room22_mix001.npy
+142: fold3_room21_mix013.npy
+143: fold3_room9_mix002.npy
+144: fold3_room21_mix023.npy
+145: fold4_room15_mix002.npy
+146: fold3_room21_mix016.npy
+147: fold3_room22_mix010.npy
+148: fold4_room16_mix002.npy
+149: fold3_room14_mix004.npy
+150: fold3_room7_mix002.npy
+151: fold4_room8_mix006.npy
+152: fold4_room24_mix014.npy
+153: fold3_room14_mix002.npy
+154: fold3_room12_mix004.npy
+155: fold3_room21_mix028.npy
+156: fold3_room21_mix018.npy
+157: fold4_room10_mix005.npy
+158: fold3_room22_mix005.npy
+159: fold3_room21_mix001.npy
+160: fold4_room24_mix015.npy
+161: fold3_room4_mix001.npy
+162: fold4_room10_mix003.npy
+163: fold4_room23_mix006.npy
+164: fold3_room22_mix009.npy
+165: fold3_room22_mix006.npy
+166: fold3_room12_mix002.npy
+167: fold4_room8_mix003.npy
+normalized files written to ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled_norm
+Extracting labels:
+		aud_dir ../DCASE2024_SELD_dataset/foa_dev
+		desc_dir ../DCASE2024_SELD_dataset/metadata_dev
+		label_dir ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_adpit_label
+0: fold3_room13_mix006.csv, (3078, 6, 5, 13)
+1: fold3_room14_mix003.csv, (408, 6, 5, 13)
+2: fold3_room4_mix001.csv, (1290, 6, 5, 13)
+3: fold3_room7_mix002.csv, (3254, 6, 5, 13)
+4: fold3_room7_mix004.csv, (3284, 6, 5, 13)
+5: fold3_room6_mix005.csv, (2739, 6, 5, 13)
+6: fold3_room12_mix010.csv, (1927, 6, 5, 13)
+7: fold3_room13_mix003.csv, (2040, 6, 5, 13)
+8: fold3_room12_mix005.csv, (948, 6, 5, 13)
+9: fold3_room4_mix008.csv, (1663, 6, 5, 13)
+10: fold3_room14_mix002.csv, (774, 6, 5, 13)
+11: fold3_room9_mix005.csv, (2298, 6, 5, 13)
+12: fold3_room12_mix003.csv, (3547, 6, 5, 13)
+13: fold3_room13_mix008.csv, (2358, 6, 5, 13)
+14: fold3_room13_mix004.csv, (1555, 6, 5, 13)
+15: fold3_room4_mix007.csv, (2242, 6, 5, 13)
+16: fold3_room12_mix006.csv, (1550, 6, 5, 13)
+17: fold3_room12_mix002.csv, (2247, 6, 5, 13)
+18: fold3_room13_mix007.csv, (2443, 6, 5, 13)
+19: fold3_room6_mix003.csv, (3219, 6, 5, 13)
+20: fold3_room12_mix007.csv, (2487, 6, 5, 13)
+21: fold3_room9_mix003.csv, (1645, 6, 5, 13)
+22: fold3_room6_mix001.csv, (2198, 6, 5, 13)
+23: fold3_room9_mix008.csv, (2138, 6, 5, 13)
+24: fold3_room6_mix004.csv, (2895, 6, 5, 13)
+25: fold3_room6_mix002.csv, (2577, 6, 5, 13)
+26: fold3_room9_mix006.csv, (1487, 6, 5, 13)
+27: fold3_room6_mix006.csv, (1014, 6, 5, 13)
+28: fold3_room13_mix001.csv, (2631, 6, 5, 13)
+29: fold3_room14_mix004.csv, (656, 6, 5, 13)
+30: fold3_room7_mix001.csv, (1545, 6, 5, 13)
+31: fold3_room4_mix004.csv, (1597, 6, 5, 13)
+32: fold3_room12_mix004.csv, (3351, 6, 5, 13)
+33: fold3_room7_mix003.csv, (2183, 6, 5, 13)
+34: fold3_room12_mix001.csv, (2532, 6, 5, 13)
+35: fold3_room4_mix006.csv, (1817, 6, 5, 13)
+36: fold3_room13_mix005.csv, (534, 6, 5, 13)
+37: fold3_room12_mix008.csv, (2451, 6, 5, 13)
+38: fold3_room13_mix002.csv, (2966, 6, 5, 13)
+39: fold3_room9_mix004.csv, (1464, 6, 5, 13)
+40: fold3_room9_mix002.csv, (1722, 6, 5, 13)
+41: fold3_room9_mix001.csv, (1807, 6, 5, 13)
+42: fold3_room7_mix005.csv, (2604, 6, 5, 13)
+43: fold3_room13_mix009.csv, (3886, 6, 5, 13)
+44: fold3_room14_mix001.csv, (1065, 6, 5, 13)
+45: fold3_room6_mix007.csv, (2145, 6, 5, 13)
+46: fold3_room9_mix007.csv, (1603, 6, 5, 13)
+47: fold3_room7_mix006.csv, (3366, 6, 5, 13)
+48: fold3_room12_mix009.csv, (1037, 6, 5, 13)
+49: fold3_room4_mix005.csv, (1094, 6, 5, 13)
+0: fold4_room10_mix005.csv, (1160, 6, 5, 13)
+1: fold4_room8_mix009.csv, (3591, 6, 5, 13)
+2: fold4_room2_mix001.csv, (1492, 6, 5, 13)
+3: fold4_room15_mix001.csv, (1634, 6, 5, 13)
+4: fold4_room2_mix003.csv, (2534, 6, 5, 13)
+5: fold4_room16_mix002.csv, (1267, 6, 5, 13)
+6: fold4_room10_mix001.csv, (1378, 6, 5, 13)
+7: fold4_room8_mix003.csv, (2135, 6, 5, 13)
+8: fold4_room10_mix004.csv, (1480, 6, 5, 13)
+9: fold4_room16_mix014.csv, (960, 6, 5, 13)
+10: fold4_room15_mix006.csv, (2987, 6, 5, 13)
+11: fold4_room10_mix006.csv, (1704, 6, 5, 13)
+12: fold4_room10_mix008.csv, (1469, 6, 5, 13)
+13: fold4_room15_mix002.csv, (1805, 6, 5, 13)
+14: fold4_room16_mix001.csv, (2198, 6, 5, 13)
+15: fold4_room15_mix005.csv, (1269, 6, 5, 13)
+16: fold4_room8_mix008.csv, (1672, 6, 5, 13)
+17: fold4_room8_mix005.csv, (1752, 6, 5, 13)
+18: fold4_room8_mix002.csv, (1878, 6, 5, 13)
+19: fold4_room16_mix007.csv, (2045, 6, 5, 13)
+20: fold4_room16_mix012.csv, (1411, 6, 5, 13)
+21: fold4_room15_mix008.csv, (1524, 6, 5, 13)
+22: fold4_room2_mix004.csv, (1703, 6, 5, 13)
+23: fold4_room16_mix003.csv, (1311, 6, 5, 13)
+24: fold4_room15_mix003.csv, (2726, 6, 5, 13)
+25: fold4_room8_mix007.csv, (1336, 6, 5, 13)
+26: fold4_room15_mix009.csv, (2237, 6, 5, 13)
+27: fold4_room10_mix009.csv, (1620, 6, 5, 13)
+28: fold4_room2_mix005.csv, (1836, 6, 5, 13)
+29: fold4_room16_mix010.csv, (1319, 6, 5, 13)
+30: fold4_room16_mix005.csv, (477, 6, 5, 13)
+31: fold4_room16_mix004.csv, (1418, 6, 5, 13)
+32: fold4_room16_mix011.csv, (1753, 6, 5, 13)
+33: fold4_room15_mix004.csv, (2866, 6, 5, 13)
+34: fold4_room15_mix007.csv, (2307, 6, 5, 13)
+35: fold4_room8_mix001.csv, (2081, 6, 5, 13)
+36: fold4_room16_mix009.csv, (840, 6, 5, 13)
+37: fold4_room15_mix010.csv, (5692, 6, 5, 13)
+38: fold4_room8_mix004.csv, (1062, 6, 5, 13)
+39: fold4_room16_mix008.csv, (455, 6, 5, 13)
+40: fold4_room16_mix013.csv, (1208, 6, 5, 13)
+41: fold4_room2_mix002.csv, (2729, 6, 5, 13)
+42: fold4_room8_mix006.csv, (2250, 6, 5, 13)
+43: fold4_room16_mix006.csv, (1759, 6, 5, 13)
+44: fold4_room10_mix002.csv, (1449, 6, 5, 13)
+45: fold4_room2_mix006.csv, (3490, 6, 5, 13)
+46: fold4_room10_mix007.csv, (1443, 6, 5, 13)
+47: fold4_room10_mix003.csv, (1402, 6, 5, 13)
+0: fold4_room23_mix008.csv, (530, 6, 5, 13)
+1: fold4_room24_mix014.csv, (1256, 6, 5, 13)
+2: fold4_room23_mix004.csv, (1022, 6, 5, 13)
+3: fold4_room24_mix002.csv, (1054, 6, 5, 13)
+4: fold4_room24_mix001.csv, (1789, 6, 5, 13)
+5: fold4_room24_mix009.csv, (775, 6, 5, 13)
+6: fold4_room23_mix011.csv, (1150, 6, 5, 13)
+7: fold4_room24_mix012.csv, (1568, 6, 5, 13)
+8: fold4_room24_mix005.csv, (1373, 6, 5, 13)
+9: fold4_room23_mix014.csv, (1200, 6, 5, 13)
+10: fold4_room23_mix003.csv, (420, 6, 5, 13)
+11: fold4_room23_mix006.csv, (1047, 6, 5, 13)
+12: fold4_room23_mix007.csv, (1260, 6, 5, 13)
+13: fold4_room24_mix011.csv, (633, 6, 5, 13)
+14: fold4_room23_mix009.csv, (650, 6, 5, 13)
+15: fold4_room24_mix016.csv, (798, 6, 5, 13)
+16: fold4_room23_mix005.csv, (743, 6, 5, 13)
+17: fold4_room23_mix001.csv, (607, 6, 5, 13)
+18: fold4_room24_mix013.csv, (572, 6, 5, 13)
+19: fold4_room24_mix015.csv, (728, 6, 5, 13)
+20: fold4_room24_mix006.csv, (1410, 6, 5, 13)
+21: fold4_room23_mix010.csv, (710, 6, 5, 13)
+22: fold4_room24_mix008.csv, (970, 6, 5, 13)
+23: fold4_room23_mix002.csv, (447, 6, 5, 13)
+24: fold4_room24_mix007.csv, (890, 6, 5, 13)
+25: fold4_room23_mix012.csv, (950, 6, 5, 13)
+26: fold4_room23_mix013.csv, (600, 6, 5, 13)
+27: fold4_room24_mix004.csv, (951, 6, 5, 13)
+28: fold4_room24_mix010.csv, (727, 6, 5, 13)
+29: fold4_room24_mix003.csv, (973, 6, 5, 13)
+0: fold3_room22_mix005.csv, (1335, 6, 5, 13)
+1: fold3_room21_mix002.csv, (1400, 6, 5, 13)
+2: fold3_room21_mix003.csv, (1180, 6, 5, 13)
+3: fold3_room22_mix002.csv, (1195, 6, 5, 13)
+4: fold3_room22_mix003.csv, (695, 6, 5, 13)
+5: fold3_room21_mix004.csv, (325, 6, 5, 13)
+6: fold3_room21_mix024.csv, (840, 6, 5, 13)
+7: fold3_room21_mix008.csv, (1555, 6, 5, 13)
+8: fold3_room21_mix006.csv, (379, 6, 5, 13)
+9: fold3_room21_mix009.csv, (1102, 6, 5, 13)
+10: fold3_room21_mix020.csv, (1276, 6, 5, 13)
+11: fold3_room22_mix006.csv, (600, 6, 5, 13)
+12: fold3_room21_mix007.csv, (768, 6, 5, 13)
+13: fold3_room21_mix012.csv, (1548, 6, 5, 13)
+14: fold3_room21_mix011.csv, (586, 6, 5, 13)
+15: fold3_room22_mix010.csv, (2250, 6, 5, 13)
+16: fold3_room21_mix001.csv, (894, 6, 5, 13)
+17: fold3_room21_mix010.csv, (945, 6, 5, 13)
+18: fold3_room21_mix015.csv, (1137, 6, 5, 13)
+19: fold3_room21_mix016.csv, (752, 6, 5, 13)
+20: fold3_room21_mix017.csv, (1320, 6, 5, 13)
+21: fold3_room21_mix019.csv, (490, 6, 5, 13)
+22: fold3_room22_mix004.csv, (1048, 6, 5, 13)
+23: fold3_room21_mix022.csv, (1750, 6, 5, 13)
+24: fold3_room21_mix013.csv, (650, 6, 5, 13)
+25: fold3_room21_mix021.csv, (1300, 6, 5, 13)
+26: fold3_room22_mix008.csv, (950, 6, 5, 13)
+27: fold3_room22_mix009.csv, (854, 6, 5, 13)
+28: fold3_room21_mix025.csv, (2430, 6, 5, 13)
+29: fold3_room21_mix005.csv, (680, 6, 5, 13)
+30: fold3_room22_mix011.csv, (1850, 6, 5, 13)
+31: fold3_room21_mix018.csv, (1300, 6, 5, 13)
+32: fold3_room21_mix027.csv, (1113, 6, 5, 13)
+33: fold3_room21_mix028.csv, (1000, 6, 5, 13)
+34: fold3_room22_mix001.csv, (750, 6, 5, 13)
+35: fold3_room21_mix023.csv, (1095, 6, 5, 13)
+36: fold3_room21_mix014.csv, (680, 6, 5, 13)
+37: fold3_room22_mix007.csv, (1261, 6, 5, 13)
+38: fold3_room21_mix026.csv, (2599, 6, 5, 13)
+39: fold3_room21_mix029.csv, (2061, 6, 5, 13)
+=== 2026-03-01 15:47:41 Step 2: Train + Test Eval (task 33, job decoupled33_0301_1539) ===
+[BOOT 2026-03-01 15:47:41] train_seldnet.py import 시작
+[BOOT 2026-03-01 15:47:42] numpy import 완료
+[BOOT 2026-03-01 15:47:42] matplotlib import 완료
+[BOOT 2026-03-01 15:47:44] cls_feature_class import 완료
+[BOOT 2026-03-01 15:47:44] cls_data_generator import 완료
+[BOOT 2026-03-01 15:47:45] torch import 완료
+[BOOT 2026-03-01 15:47:45] 모듈 import 완료
+['train_seldnet.py', '33', 'decoupled33_0301_1539']
+[Debug] parameters.get_params 시작 (task_id=33)
+SET: 33
+FOA + multi ACCDOA + L2 Decoupled Adaptive Softmask
+
+	quick_test: False
+	finetune_mode: True
+	pretrained_model_weights: 3_1_dev_split0_multiaccdoa_foa_model.h5
+	dataset_dir: ../DCASE2024_SELD_dataset/
+	feat_label_dir: ../DCASE2024_SELD_dataset/seld_feat_label/
+	model_dir: models_audio
+	dcase_output_dir: results_audio
+	mode: dev
+	dataset: foa
+	fs: 24000
+	hop_len_s: 0.02
+	label_hop_len_s: 0.1
+	max_audio_len_s: 60
+	nb_mel_bins: 64
+	use_salsalite: False
+	fmin_doa_salsalite: 50
+	fmax_doa_salsalite: 2000
+	fmax_spectra_salsalite: 9000
+	l2_enable: True
+	l2_mode: foa_tf_decoupled_adaptive_softmask
+	l2_mask_tau: 0.05
+	l2_mask_tau_base: 0.2
+	l2_mask_k: 10.0
+	l2_diffuseness_alpha: 0.5
+	l2_iv_blend_lambda: 0.5
+	modality: audio
+	multi_accdoa: True
+	thresh_unify: 15
+	label_sequence_length: 50
+	batch_size: 128
+	dropout_rate: 0.05
+	nb_cnn2d_filt: 64
+	f_pool_size: [4, 4, 2]
+	nb_heads: 8
+	nb_self_attn_layers: 2
+	nb_transformer_layers: 2
+	nb_rnn_layers: 2
+	rnn_size: 128
+	nb_fnn_layers: 1
+	fnn_size: 128
+	nb_epochs: 250
+	lr: 0.001
+	average: macro
+	segment_based_metrics: False
+	evaluate_distance: True
+	lad_doa_thresh: 20
+	lad_dist_thresh: inf
+	lad_reldist_thresh: 1.0
+	feature_sequence_length: 250
+	t_pool_size: [5, 1, 1]
+	patience: 250
+	unique_classes: 13
+[Debug] parameters.get_params 완료
+
+
+---------------------------------------------------------------------------------------------------
+------------------------------------      SPLIT [4]   -----------------------------------------------
+---------------------------------------------------------------------------------------------------
+unique_name: 33_decoupled33_0301_1539_dev_split0_multiaccdoa_foa
+
+Loading training dataset:
+Computing some stats about the dataset
+	Datagen_mode: dev, nb_files: 90, nb_classes:13
+	nb_frames_file: 11235, feat_len: 64, nb_ch: 7, label_len:None
+
+	Dataset: foa, split: [3]
+	batch_size: 128, feat_seq_len: 250, label_seq_len: 50, shuffle: True
+	Total batches in dataset: 22
+	label_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_adpit_label
+ 	feat_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled_norm
+
+Loading validation dataset:
+Computing some stats about the dataset
+	WARNING: Resetting batch size to 114. To accommodate the inference of longest file of 28461 frames in a single batch
+	Datagen_mode: dev, nb_files: 78, nb_classes:13
+	nb_frames_file: 28461, feat_len: 64, nb_ch: 7, label_len:None
+
+	Dataset: foa, split: [4]
+	batch_size: 114, feat_seq_len: 250, label_seq_len: 50, shuffle: False
+	Total batches in dataset: 78
+	label_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_adpit_label
+ 	feat_dir: ../DCASE2024_SELD_dataset/seld_feat_label/foa_dev_l2foa_decoupled_norm
+
+Running in finetuning mode. Initializing the model to the weights - 3_1_dev_split0_multiaccdoa_foa_model.h5
+train_seldnet.py:459: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  state_dict = torch.load(params['pretrained_model_weights'], map_location='cpu')
+---------------- SELD-net -------------------
+FEATURES:
+	data_in: (128, 7, 250, 64)
+	data_out: (128, 50, 156)
+
+MODEL:
+	dropout_rate: 0.05
+	CNN: nb_cnn_filt: 64, f_pool_size[4, 4, 2], t_pool_size[5, 1, 1]
+, rnn_size: 128
+, nb_attention_blocks: 2
+, fnn_size: 128
+
+SeldModel(
+  (conv_block_list): ModuleList(
+    (0): ConvBlock(
+      (conv): Conv2d(7, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): MaxPool2d(kernel_size=(5, 4), stride=(5, 4), padding=0, dilation=1, ceil_mode=False)
+    (2): Dropout2d(p=0.05, inplace=False)
+    (3): ConvBlock(
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (4): MaxPool2d(kernel_size=(1, 4), stride=(1, 4), padding=0, dilation=1, ceil_mode=False)
+    (5): Dropout2d(p=0.05, inplace=False)
+    (6): ConvBlock(
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (7): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+    (8): Dropout2d(p=0.05, inplace=False)
+  )
+  (gru): GRU(128, 128, num_layers=2, batch_first=True, dropout=0.05, bidirectional=True)
+  (mhsa_block_list): ModuleList(
+    (0-1): 2 x MultiheadAttention(
+      (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+    )
+  )
+  (layer_norm_list): ModuleList(
+    (0-1): 2 x LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+  )
+  (fnn_list): ModuleList(
+    (0): Linear(in_features=128, out_features=128, bias=True)
+    (1): Linear(in_features=128, out_features=156, bias=True)
+  )
+  (doa_act): Tanh()
+  (dist_act): ReLU()
+)
+Dumping recording-wise val results in: results_audio/33_decoupled33_0301_1539_dev_split0_multiaccdoa_foa_20260301064748_val
+[Debug] ComputeSELDResults 초기화 시작
+[Debug] ComputeSELDResults 초기화 완료 (3.54s)
+
+[Debug] ================== Epoch 0 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 0, time: 5.02/66.97, train_loss: 0.1081, val_loss: 0.0460, F/AE/Dist_err/Rel_dist_err/SELD: 0.00/28.96/0.77/0.36/0.88, best_val_epoch: 0 (0.00/28.96/0.77/0.36/0.88)
+
+[Debug] ================== Epoch 1 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 1, time: 4.87/71.12, train_loss: 0.0682, val_loss: 0.0612, F/AE/Dist_err/Rel_dist_err/SELD: 0.02/33.26/0.50/0.26/0.79, best_val_epoch: 1 (0.02/33.26/0.50/0.26/0.79)
+
+[Debug] ================== Epoch 2 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 2, time: 5.43/74.46, train_loss: 0.0596, val_loss: 0.0688, F/AE/Dist_err/Rel_dist_err/SELD: 0.03/31.17/0.65/0.30/0.80, best_val_epoch: 2 (0.03/31.17/0.65/0.30/0.80)
+
+[Debug] ================== Epoch 3 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 3, time: 4.55/75.04, train_loss: 0.0636, val_loss: 0.0739, F/AE/Dist_err/Rel_dist_err/SELD: 0.03/41.34/0.66/0.40/0.78, best_val_epoch: 3 (0.03/41.34/0.66/0.40/0.78)
+
+[Debug] ================== Epoch 4 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 4, time: 4.70/76.14, train_loss: 0.0556, val_loss: 0.0592, F/AE/Dist_err/Rel_dist_err/SELD: 0.04/40.29/0.62/0.37/0.77, best_val_epoch: 4 (0.04/40.29/0.62/0.37/0.77)
+
+[Debug] ================== Epoch 5 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 5, time: 5.59/76.47, train_loss: 0.0499, val_loss: 0.0459, F/AE/Dist_err/Rel_dist_err/SELD: 0.04/38.70/0.61/0.36/0.77, best_val_epoch: 5 (0.04/38.70/0.61/0.36/0.77)
+
+[Debug] ================== Epoch 6 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 6, time: 5.13/78.04, train_loss: 0.0481, val_loss: 0.0652, F/AE/Dist_err/Rel_dist_err/SELD: 0.05/38.49/0.53/0.29/0.75, best_val_epoch: 6 (0.05/38.49/0.53/0.29/0.75)
+
+[Debug] ================== Epoch 7 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 7, time: 5.07/76.82, train_loss: 0.0451, val_loss: 0.0538, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/37.31/0.55/0.30/0.75, best_val_epoch: 7 (0.07/37.31/0.55/0.30/0.75)
+
+[Debug] ================== Epoch 8 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 8, time: 4.72/79.97, train_loss: 0.0437, val_loss: 0.0654, F/AE/Dist_err/Rel_dist_err/SELD: 0.06/39.52/0.53/0.31/0.75, best_val_epoch: 7 (0.07/37.31/0.55/0.30/0.75)
+
+[Debug] ================== Epoch 9 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 9, time: 4.95/79.07, train_loss: 0.0442, val_loss: 0.0524, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/33.11/0.65/0.34/0.71, best_val_epoch: 9 (0.07/33.11/0.65/0.34/0.71)
+
+[Debug] ================== Epoch 10 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 10, time: 4.98/76.84, train_loss: 0.0419, val_loss: 0.0444, F/AE/Dist_err/Rel_dist_err/SELD: 0.06/37.13/0.51/0.28/0.75, best_val_epoch: 9 (0.07/33.11/0.65/0.34/0.71)
+
+[Debug] ================== Epoch 11 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 11, time: 5.09/81.47, train_loss: 0.0380, val_loss: 0.0506, F/AE/Dist_err/Rel_dist_err/SELD: 0.08/37.50/0.50/0.28/0.70, best_val_epoch: 11 (0.08/37.50/0.50/0.28/0.70)
+
+[Debug] ================== Epoch 12 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 12, time: 5.46/78.30, train_loss: 0.0375, val_loss: 0.0365, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/35.02/0.51/0.27/0.66, best_val_epoch: 11 (0.08/37.50/0.50/0.28/0.70)
+
+[Debug] ================== Epoch 13 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 13, time: 4.87/81.10, train_loss: 0.0340, val_loss: 0.0352, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/35.48/0.53/0.29/0.67, best_val_epoch: 11 (0.08/37.50/0.50/0.28/0.70)
+
+[Debug] ================== Epoch 14 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 14, time: 5.12/79.53, train_loss: 0.0332, val_loss: 0.0200, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/33.95/0.50/0.26/0.66, best_val_epoch: 11 (0.08/37.50/0.50/0.28/0.70)
+
+[Debug] ================== Epoch 15 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 15, time: 4.82/82.84, train_loss: 0.0323, val_loss: 0.0414, F/AE/Dist_err/Rel_dist_err/SELD: 0.08/35.15/0.50/0.27/0.66, best_val_epoch: 15 (0.08/35.15/0.50/0.27/0.66)
+
+[Debug] ================== Epoch 16 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 16, time: 5.25/79.36, train_loss: 0.0303, val_loss: 0.0425, F/AE/Dist_err/Rel_dist_err/SELD: 0.08/33.19/0.49/0.26/0.65, best_val_epoch: 16 (0.08/33.19/0.49/0.26/0.65)
+
+[Debug] ================== Epoch 17 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 17, time: 4.95/78.16, train_loss: 0.0296, val_loss: 0.0371, F/AE/Dist_err/Rel_dist_err/SELD: 0.07/35.48/0.42/0.23/0.65, best_val_epoch: 16 (0.08/33.19/0.49/0.26/0.65)
+
+[Debug] ================== Epoch 18 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 18, time: 5.14/79.49, train_loss: 0.0290, val_loss: 0.0487, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.13/0.57/0.29/0.62, best_val_epoch: 18 (0.09/31.13/0.57/0.29/0.62)
+
+[Debug] ================== Epoch 19 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 19, time: 5.04/78.81, train_loss: 0.0281, val_loss: 0.0526, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/30.94/0.55/0.28/0.61, best_val_epoch: 18 (0.09/31.13/0.57/0.29/0.62)
+
+[Debug] ================== Epoch 20 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 20, time: 5.41/83.21, train_loss: 0.0266, val_loss: 0.0392, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/30.69/0.58/0.29/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 21 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 21, time: 5.50/84.25, train_loss: 0.0259, val_loss: 0.0397, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.00/0.57/0.28/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 22 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 22, time: 4.67/84.01, train_loss: 0.0256, val_loss: 0.0457, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.91/0.51/0.27/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 23 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 23, time: 5.06/81.42, train_loss: 0.0249, val_loss: 0.0404, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.46/0.53/0.28/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 24 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 24, time: 4.86/80.61, train_loss: 0.0245, val_loss: 0.0316, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.97/0.53/0.27/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 25 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 25, time: 4.76/79.84, train_loss: 0.0247, val_loss: 0.0226, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/34.60/0.47/0.24/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 26 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 26, time: 4.75/80.30, train_loss: 0.0240, val_loss: 0.0236, F/AE/Dist_err/Rel_dist_err/SELD: 0.08/35.13/0.47/0.24/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 27 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 27, time: 4.75/79.86, train_loss: 0.0235, val_loss: 0.0234, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/34.98/0.51/0.26/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 28 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 28, time: 4.81/81.41, train_loss: 0.0231, val_loss: 0.0195, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/34.63/0.46/0.25/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 29 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 29, time: 4.44/87.76, train_loss: 0.0243, val_loss: 0.0203, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/34.75/0.47/0.24/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 30 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 30, time: 4.90/81.41, train_loss: 0.0228, val_loss: 0.0211, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.12/0.51/0.26/0.57, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 31 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 31, time: 4.88/90.34, train_loss: 0.0217, val_loss: 0.0208, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/32.99/0.51/0.27/0.61, best_val_epoch: 20 (0.10/30.69/0.58/0.29/0.61)
+
+[Debug] ================== Epoch 32 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 32, time: 5.73/87.24, train_loss: 0.0214, val_loss: 0.0230, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.49/0.50/0.26/0.61, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 33 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 33, time: 5.40/96.64, train_loss: 0.0210, val_loss: 0.0349, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.17/0.48/0.25/0.61, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 34 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 34, time: 6.94/94.45, train_loss: 0.0206, val_loss: 0.0210, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.74/0.48/0.26/0.57, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 35 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 35, time: 5.49/92.37, train_loss: 0.0202, val_loss: 0.0324, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/35.61/0.50/0.27/0.62, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 36 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 36, time: 6.26/91.43, train_loss: 0.0196, val_loss: 0.0432, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/33.10/0.48/0.27/0.57, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 37 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 37, time: 5.19/91.46, train_loss: 0.0197, val_loss: 0.0340, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/31.88/0.51/0.27/0.57, best_val_epoch: 32 (0.10/33.49/0.50/0.26/0.61)
+
+[Debug] ================== Epoch 38 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 38, time: 5.48/89.45, train_loss: 0.0202, val_loss: 0.0535, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/34.67/0.46/0.25/0.61, best_val_epoch: 38 (0.10/34.67/0.46/0.25/0.61)
+
+[Debug] ================== Epoch 39 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 39, time: 5.50/88.57, train_loss: 0.0192, val_loss: 0.0292, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.52/0.54/0.29/0.57, best_val_epoch: 39 (0.10/32.52/0.54/0.29/0.57)
+
+[Debug] ================== Epoch 40 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 40, time: 5.47/86.85, train_loss: 0.0188, val_loss: 0.0297, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.86/0.49/0.27/0.57, best_val_epoch: 39 (0.10/32.52/0.54/0.29/0.57)
+
+[Debug] ================== Epoch 41 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 41, time: 4.57/90.97, train_loss: 0.0182, val_loss: 0.0194, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/32.48/0.52/0.28/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 42 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 42, time: 4.60/90.21, train_loss: 0.0185, val_loss: 0.0217, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.92/0.52/0.28/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 43 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 43, time: 4.88/89.88, train_loss: 0.0187, val_loss: 0.0246, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.44/0.49/0.27/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 44 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 44, time: 4.65/89.78, train_loss: 0.0181, val_loss: 0.0331, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.75/0.49/0.26/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 45 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 45, time: 4.79/89.47, train_loss: 0.0175, val_loss: 0.0428, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/32.97/0.48/0.26/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 46 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 46, time: 4.67/90.54, train_loss: 0.0170, val_loss: 0.0224, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.00/0.48/0.26/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 47 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 47, time: 6.69/89.35, train_loss: 0.0165, val_loss: 0.0272, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.63/0.51/0.28/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 48 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 48, time: 6.26/87.62, train_loss: 0.0166, val_loss: 0.0437, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/34.06/0.49/0.27/0.57, best_val_epoch: 41 (0.11/32.48/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 49 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 49, time: 4.33/88.94, train_loss: 0.0166, val_loss: 0.0210, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.72/0.48/0.26/0.57, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 50 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 50, time: 5.14/88.44, train_loss: 0.0164, val_loss: 0.0268, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.77/0.49/0.27/0.57, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 51 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 51, time: 4.75/88.61, train_loss: 0.0161, val_loss: 0.0313, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.86/0.50/0.28/0.57, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 52 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 52, time: 5.10/89.15, train_loss: 0.0163, val_loss: 0.0249, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.63/0.50/0.26/0.57, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 53 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 53, time: 4.37/111.87, train_loss: 0.0168, val_loss: 0.0599, F/AE/Dist_err/Rel_dist_err/SELD: 0.09/33.61/0.53/0.29/0.58, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 54 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 54, time: 5.52/88.94, train_loss: 0.0169, val_loss: 0.0377, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/32.40/0.51/0.27/0.57, best_val_epoch: 49 (0.11/33.72/0.48/0.26/0.57)
+
+[Debug] ================== Epoch 55 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 55, time: 6.32/94.37, train_loss: 0.0169, val_loss: 0.0253, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/31.44/0.52/0.27/0.56, best_val_epoch: 55 (0.11/31.44/0.52/0.27/0.56)
+
+[Debug] ================== Epoch 56 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 56, time: 4.87/90.87, train_loss: 0.0161, val_loss: 0.0215, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/34.40/0.50/0.27/0.57, best_val_epoch: 55 (0.11/31.44/0.52/0.27/0.56)
+
+[Debug] ================== Epoch 57 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 57, time: 4.71/90.37, train_loss: 0.0159, val_loss: 0.0183, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/32.22/0.50/0.27/0.56, best_val_epoch: 55 (0.11/31.44/0.52/0.27/0.56)
+
+[Debug] ================== Epoch 58 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 58, time: 5.85/91.55, train_loss: 0.0155, val_loss: 0.0224, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.89/0.50/0.27/0.57, best_val_epoch: 55 (0.11/31.44/0.52/0.27/0.56)
+
+[Debug] ================== Epoch 59 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 59, time: 5.53/88.33, train_loss: 0.0151, val_loss: 0.0212, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.48/0.51/0.28/0.57, best_val_epoch: 59 (0.11/33.48/0.51/0.28/0.57)
+
+[Debug] ================== Epoch 60 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 60, time: 5.69/91.69, train_loss: 0.0150, val_loss: 0.0313, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.67/0.50/0.26/0.57, best_val_epoch: 60 (0.12/34.67/0.50/0.26/0.57)
+
+[Debug] ================== Epoch 61 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 61, time: 4.62/92.62, train_loss: 0.0150, val_loss: 0.0250, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/33.93/0.50/0.26/0.56, best_val_epoch: 61 (0.12/33.93/0.50/0.26/0.56)
+
+[Debug] ================== Epoch 62 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 62, time: 4.89/96.16, train_loss: 0.0149, val_loss: 0.0313, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/33.30/0.50/0.27/0.56, best_val_epoch: 62 (0.12/33.30/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 63 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 63, time: 4.76/93.68, train_loss: 0.0149, val_loss: 0.0471, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.69/0.51/0.27/0.57, best_val_epoch: 62 (0.12/33.30/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 64 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 64, time: 4.63/92.75, train_loss: 0.0147, val_loss: 0.0372, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.58/0.49/0.27/0.57, best_val_epoch: 62 (0.12/33.30/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 65 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 65, time: 4.67/91.19, train_loss: 0.0146, val_loss: 0.0385, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/35.21/0.50/0.27/0.57, best_val_epoch: 62 (0.12/33.30/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 66 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 66, time: 5.12/90.88, train_loss: 0.0152, val_loss: 0.0373, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/32.68/0.52/0.28/0.57, best_val_epoch: 66 (0.12/32.68/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 67 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 67, time: 4.66/90.62, train_loss: 0.0151, val_loss: 0.0492, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.07/0.47/0.25/0.56, best_val_epoch: 66 (0.12/32.68/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 68 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 68, time: 4.84/91.04, train_loss: 0.0147, val_loss: 0.0434, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/34.63/0.50/0.27/0.57, best_val_epoch: 66 (0.12/32.68/0.52/0.28/0.57)
+
+[Debug] ================== Epoch 69 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 69, time: 4.83/90.46, train_loss: 0.0144, val_loss: 0.0567, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.09/0.49/0.27/0.57, best_val_epoch: 69 (0.12/34.09/0.49/0.27/0.57)
+
+[Debug] ================== Epoch 70 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 70, time: 5.16/91.54, train_loss: 0.0141, val_loss: 0.0195, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.72/0.50/0.27/0.57, best_val_epoch: 69 (0.12/34.09/0.49/0.27/0.57)
+
+[Debug] ================== Epoch 71 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 71, time: 5.08/89.73, train_loss: 0.0147, val_loss: 0.0224, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.44/0.48/0.26/0.56, best_val_epoch: 69 (0.12/34.09/0.49/0.27/0.57)
+
+[Debug] ================== Epoch 72 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 72, time: 4.79/91.95, train_loss: 0.0150, val_loss: 0.0297, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/33.43/0.50/0.27/0.56, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 73 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 73, time: 4.88/90.43, train_loss: 0.0140, val_loss: 0.0636, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/35.74/0.48/0.26/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 74 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 74, time: 6.95/90.00, train_loss: 0.0133, val_loss: 0.0595, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/37.20/0.47/0.25/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 75 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 75, time: 6.99/90.66, train_loss: 0.0131, val_loss: 0.0451, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.66/0.46/0.25/0.56, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 76 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 76, time: 5.35/88.86, train_loss: 0.0129, val_loss: 0.0561, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.56/0.46/0.25/0.56, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 77 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 77, time: 5.38/89.59, train_loss: 0.0132, val_loss: 0.0668, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/33.99/0.50/0.27/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 78 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 78, time: 6.32/92.36, train_loss: 0.0131, val_loss: 0.0743, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.63/0.48/0.26/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 79 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 79, time: 5.02/87.98, train_loss: 0.0128, val_loss: 0.0484, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.17/0.49/0.27/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 80 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 80, time: 5.81/92.04, train_loss: 0.0127, val_loss: 0.0625, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/34.34/0.47/0.27/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 81 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 81, time: 5.74/89.27, train_loss: 0.0126, val_loss: 0.0625, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/34.38/0.49/0.27/0.57, best_val_epoch: 72 (0.12/33.43/0.50/0.27/0.56)
+
+[Debug] ================== Epoch 82 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 82, time: 5.30/87.45, train_loss: 0.0127, val_loss: 0.0568, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/33.34/0.48/0.26/0.56, best_val_epoch: 82 (0.13/33.34/0.48/0.26/0.56)
+
+[Debug] ================== Epoch 83 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 83, time: 7.83/87.29, train_loss: 0.0120, val_loss: 0.0671, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/33.19/0.49/0.27/0.56, best_val_epoch: 82 (0.13/33.34/0.48/0.26/0.56)
+
+[Debug] ================== Epoch 84 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 84, time: 6.13/89.89, train_loss: 0.0123, val_loss: 0.0660, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/33.27/0.47/0.25/0.56, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 85 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 85, time: 6.35/97.46, train_loss: 0.0126, val_loss: 0.0684, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/36.47/0.46/0.26/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 86 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 86, time: 5.13/127.23, train_loss: 0.0129, val_loss: 0.0851, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/36.69/0.48/0.25/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 87 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 87, time: 5.15/94.72, train_loss: 0.0133, val_loss: 0.0817, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/35.98/0.48/0.26/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 88 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 88, time: 4.75/88.19, train_loss: 0.0124, val_loss: 0.0590, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/38.46/0.49/0.26/0.53, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 89 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 89, time: 4.84/89.50, train_loss: 0.0122, val_loss: 0.0681, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/34.44/0.51/0.27/0.56, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 90 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 90, time: 6.11/97.40, train_loss: 0.0118, val_loss: 0.0351, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/34.26/0.49/0.26/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 91 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 91, time: 5.59/94.00, train_loss: 0.0116, val_loss: 0.0754, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.77/0.47/0.26/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 92 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 92, time: 4.49/87.94, train_loss: 0.0114, val_loss: 0.0768, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/37.59/0.50/0.26/0.53, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 93 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 93, time: 4.46/88.26, train_loss: 0.0122, val_loss: 0.0696, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.33/0.47/0.26/0.53, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 94 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 94, time: 4.26/94.55, train_loss: 0.0113, val_loss: 0.0846, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/36.49/0.52/0.28/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 95 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 95, time: 4.77/92.80, train_loss: 0.0111, val_loss: 0.0710, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.25/0.51/0.27/0.57, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 96 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 96, time: 5.64/107.58, train_loss: 0.0111, val_loss: 0.0686, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.22/0.48/0.26/0.56, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 97 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 97, time: 4.57/110.14, train_loss: 0.0108, val_loss: 0.0650, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.78/0.50/0.26/0.53, best_val_epoch: 84 (0.13/33.27/0.47/0.25/0.56)
+
+[Debug] ================== Epoch 98 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 98, time: 9.54/103.92, train_loss: 0.0107, val_loss: 0.0774, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/36.26/0.49/0.26/0.52, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 99 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 99, time: 9.95/110.62, train_loss: 0.0110, val_loss: 0.0808, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.48/0.54/0.28/0.53, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 100 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 100, time: 5.31/91.99, train_loss: 0.0107, val_loss: 0.0758, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/48.21/0.69/0.27/0.51, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 101 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 101, time: 7.84/84.19, train_loss: 0.0109, val_loss: 0.0734, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.08/0.54/0.27/0.53, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 102 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 102, time: 6.79/84.79, train_loss: 0.0114, val_loss: 0.0752, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/46.29/0.71/0.27/0.54, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 103 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 103, time: 7.00/91.61, train_loss: 0.0110, val_loss: 0.0775, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/35.29/0.52/0.29/0.57, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 104 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 104, time: 6.21/91.20, train_loss: 0.0110, val_loss: 0.0941, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.64/0.51/0.26/0.53, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 105 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 105, time: 5.14/91.76, train_loss: 0.0109, val_loss: 0.0756, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.65/0.50/0.26/0.53, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 106 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 106, time: 8.04/95.18, train_loss: 0.0109, val_loss: 0.0553, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/36.19/0.50/0.25/0.52, best_val_epoch: 98 (0.13/36.26/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 107 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 107, time: 5.90/92.26, train_loss: 0.0104, val_loss: 0.0567, F/AE/Dist_err/Rel_dist_err/SELD: 0.14/37.78/0.49/0.26/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 108 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 108, time: 6.19/89.47, train_loss: 0.0103, val_loss: 0.0777, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.74/0.60/0.27/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 109 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 109, time: 6.54/86.98, train_loss: 0.0097, val_loss: 0.0767, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.01/0.64/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 110 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 110, time: 5.35/87.16, train_loss: 0.0102, val_loss: 0.0894, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/36.19/0.50/0.27/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 111 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 111, time: 5.19/87.91, train_loss: 0.0101, val_loss: 0.0779, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.63/0.48/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 112 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 112, time: 6.09/90.14, train_loss: 0.0099, val_loss: 0.0748, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/48.10/0.74/0.29/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 113 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 113, time: 6.12/87.11, train_loss: 0.0099, val_loss: 0.0678, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.01/0.49/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 114 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 114, time: 5.70/86.11, train_loss: 0.0100, val_loss: 0.0720, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.97/0.51/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 115 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 115, time: 5.12/85.60, train_loss: 0.0102, val_loss: 0.0720, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.92/0.48/0.25/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 116 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 116, time: 4.80/115.57, train_loss: 0.0112, val_loss: 0.0926, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/38.43/0.52/0.29/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 117 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 117, time: 5.91/84.43, train_loss: 0.0110, val_loss: 0.0797, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/35.61/0.53/0.28/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 118 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 118, time: 5.47/91.90, train_loss: 0.0106, val_loss: 0.0782, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.19/0.64/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 119 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 119, time: 5.51/117.87, train_loss: 0.0104, val_loss: 0.0789, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/36.03/0.52/0.28/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 120 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 120, time: 5.61/115.14, train_loss: 0.0099, val_loss: 0.0806, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.37/0.55/0.29/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 121 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 121, time: 6.66/85.91, train_loss: 0.0096, val_loss: 0.0796, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/35.98/0.51/0.28/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 122 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 122, time: 5.66/84.86, train_loss: 0.0097, val_loss: 0.0631, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/33.90/0.56/0.30/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 123 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 123, time: 6.79/89.90, train_loss: 0.0095, val_loss: 0.0222, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/44.54/0.70/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 124 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 124, time: 6.73/90.33, train_loss: 0.0094, val_loss: 0.0330, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/36.70/0.52/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 125 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 125, time: 4.84/87.01, train_loss: 0.0091, val_loss: 0.0468, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.81/0.47/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 126 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 126, time: 5.74/85.38, train_loss: 0.0103, val_loss: 0.0581, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/34.52/0.48/0.26/0.56, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 127 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 127, time: 6.04/93.88, train_loss: 0.0108, val_loss: 0.0688, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/50.09/0.76/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 128 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 128, time: 5.98/92.07, train_loss: 0.0100, val_loss: 0.0673, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/48.54/0.75/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 129 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 129, time: 5.09/91.54, train_loss: 0.0096, val_loss: 0.0680, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.54/0.55/0.29/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 130 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 130, time: 4.68/86.13, train_loss: 0.0097, val_loss: 0.0677, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/43.06/0.55/0.28/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 131 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 131, time: 6.16/86.41, train_loss: 0.0096, val_loss: 0.0630, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/42.92/0.58/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 132 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 132, time: 7.00/87.49, train_loss: 0.0099, val_loss: 0.0706, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/41.35/0.58/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 133 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 133, time: 5.75/92.93, train_loss: 0.0099, val_loss: 0.0745, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.65/0.64/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 134 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 134, time: 4.93/89.17, train_loss: 0.0094, val_loss: 0.0692, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.74/0.55/0.29/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 135 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 135, time: 6.86/90.36, train_loss: 0.0089, val_loss: 0.0746, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.25/0.53/0.29/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 136 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 136, time: 6.28/90.89, train_loss: 0.0089, val_loss: 0.0764, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.03/0.49/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 137 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 137, time: 5.79/85.72, train_loss: 0.0090, val_loss: 0.0696, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.05/0.49/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 138 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 138, time: 6.24/87.14, train_loss: 0.0090, val_loss: 0.0786, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/39.67/0.50/0.27/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 139 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 139, time: 5.92/88.79, train_loss: 0.0087, val_loss: 0.0616, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.23/0.61/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 140 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 140, time: 5.80/94.20, train_loss: 0.0088, val_loss: 0.0530, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.66/0.64/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 141 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 141, time: 5.49/103.55, train_loss: 0.0088, val_loss: 0.0656, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.71/0.47/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 142 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 142, time: 5.11/93.96, train_loss: 0.0083, val_loss: 0.0590, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.89/0.61/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 143 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 143, time: 6.48/90.69, train_loss: 0.0085, val_loss: 0.0689, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.81/0.65/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 144 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 144, time: 5.80/88.87, train_loss: 0.0087, val_loss: 0.0719, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.29/0.48/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 145 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 145, time: 5.56/86.44, train_loss: 0.0084, val_loss: 0.0682, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/37.99/0.54/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 146 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 146, time: 5.83/92.35, train_loss: 0.0088, val_loss: 0.0745, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/45.39/0.63/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 147 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 147, time: 4.74/129.53, train_loss: 0.0084, val_loss: 0.0668, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.61/0.51/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 148 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 148, time: 5.23/91.34, train_loss: 0.0085, val_loss: 0.0783, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.42/0.65/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 149 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 149, time: 5.68/93.53, train_loss: 0.0079, val_loss: 0.0655, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.48/0.49/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 150 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 150, time: 5.13/93.00, train_loss: 0.0080, val_loss: 0.0701, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/38.29/0.49/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 151 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 151, time: 5.62/124.42, train_loss: 0.0079, val_loss: 0.0722, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/45.85/0.64/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 152 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 152, time: 6.63/88.75, train_loss: 0.0083, val_loss: 0.0648, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.25/0.49/0.26/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 153 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 153, time: 5.42/89.67, train_loss: 0.0082, val_loss: 0.0586, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/43.59/0.60/0.28/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 154 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 154, time: 4.62/92.41, train_loss: 0.0080, val_loss: 0.0560, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/46.93/0.68/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 155 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 155, time: 5.69/88.45, train_loss: 0.0084, val_loss: 0.0550, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/46.25/0.67/0.29/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 156 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 156, time: 5.61/88.88, train_loss: 0.0112, val_loss: 0.0621, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/42.66/0.55/0.28/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 157 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 157, time: 4.81/84.64, train_loss: 0.0285, val_loss: 0.0940, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/47.85/0.83/0.34/0.57, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 158 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 158, time: 5.44/120.33, train_loss: 0.0252, val_loss: 0.1008, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/38.26/0.55/0.32/0.59, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 159 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 159, time: 4.83/84.67, train_loss: 0.0230, val_loss: 0.0289, F/AE/Dist_err/Rel_dist_err/SELD: 0.10/33.51/0.55/0.31/0.62, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 160 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 160, time: 5.31/84.25, train_loss: 0.0177, val_loss: 0.0599, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/36.79/0.59/0.32/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 161 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 161, time: 5.77/86.05, train_loss: 0.0134, val_loss: 0.0630, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/35.76/0.55/0.30/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 162 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 162, time: 5.08/89.54, train_loss: 0.0107, val_loss: 0.0710, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.74/0.69/0.32/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 163 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 163, time: 6.22/92.67, train_loss: 0.0099, val_loss: 0.0681, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.29/0.51/0.29/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 164 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 164, time: 5.40/86.69, train_loss: 0.0089, val_loss: 0.0646, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.11/0.52/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 165 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 165, time: 5.23/91.84, train_loss: 0.0084, val_loss: 0.0643, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.55/0.52/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 166 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 166, time: 6.08/93.01, train_loss: 0.0082, val_loss: 0.0644, F/AE/Dist_err/Rel_dist_err/SELD: 0.13/47.90/0.72/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 167 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 167, time: 5.95/94.47, train_loss: 0.0081, val_loss: 0.0706, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.30/0.53/0.28/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 168 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 168, time: 5.71/116.37, train_loss: 0.0082, val_loss: 0.0579, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/41.01/0.59/0.29/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 169 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 169, time: 4.99/96.30, train_loss: 0.0076, val_loss: 0.0638, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/41.60/0.58/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 170 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 170, time: 4.82/127.35, train_loss: 0.0078, val_loss: 0.0704, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/46.75/0.75/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 171 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 171, time: 5.45/91.27, train_loss: 0.0081, val_loss: 0.0705, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/48.59/0.75/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 172 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 172, time: 4.97/91.95, train_loss: 0.0079, val_loss: 0.0673, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/36.67/0.52/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 173 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 173, time: 4.78/98.41, train_loss: 0.0077, val_loss: 0.0639, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.29/0.51/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 174 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 174, time: 5.51/92.77, train_loss: 0.0076, val_loss: 0.0697, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.65/0.64/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 175 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 175, time: 6.13/130.33, train_loss: 0.0073, val_loss: 0.0715, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.99/0.65/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 176 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 176, time: 5.43/91.71, train_loss: 0.0071, val_loss: 0.0651, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/36.60/0.50/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 177 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 177, time: 5.99/92.41, train_loss: 0.0071, val_loss: 0.0621, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.56/0.53/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 178 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 178, time: 6.31/90.51, train_loss: 0.0072, val_loss: 0.0628, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.58/0.66/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 179 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 179, time: 6.37/94.75, train_loss: 0.0072, val_loss: 0.0682, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/40.57/0.58/0.30/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 180 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 180, time: 5.67/125.55, train_loss: 0.0071, val_loss: 0.0675, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.21/0.52/0.28/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 181 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 181, time: 6.14/124.73, train_loss: 0.0069, val_loss: 0.0682, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/47.95/0.74/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 182 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 182, time: 5.46/125.16, train_loss: 0.0070, val_loss: 0.0773, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.13/0.64/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 183 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 183, time: 5.06/124.76, train_loss: 0.0070, val_loss: 0.0777, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.07/0.66/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 184 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 184, time: 5.54/123.14, train_loss: 0.0072, val_loss: 0.0628, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.06/0.50/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 185 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 185, time: 6.87/124.18, train_loss: 0.0078, val_loss: 0.0712, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.42/0.51/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 186 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 186, time: 6.93/126.42, train_loss: 0.0073, val_loss: 0.0752, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.15/0.61/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 187 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 187, time: 5.68/94.99, train_loss: 0.0068, val_loss: 0.0672, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/46.71/0.69/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 188 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 188, time: 4.56/129.47, train_loss: 0.0069, val_loss: 0.0739, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.37/0.51/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 189 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 189, time: 4.90/128.74, train_loss: 0.0067, val_loss: 0.0701, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.59/0.66/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 190 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 190, time: 5.73/130.99, train_loss: 0.0067, val_loss: 0.0713, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/38.12/0.51/0.28/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 191 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 191, time: 4.92/124.74, train_loss: 0.0069, val_loss: 0.0703, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/38.18/0.53/0.29/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 192 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 192, time: 6.82/123.61, train_loss: 0.0069, val_loss: 0.0720, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/48.26/0.73/0.29/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 193 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 193, time: 5.28/120.32, train_loss: 0.0070, val_loss: 0.0683, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.77/0.64/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 194 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 194, time: 5.86/119.32, train_loss: 0.0067, val_loss: 0.0712, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/37.50/0.53/0.28/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 195 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 195, time: 6.21/120.92, train_loss: 0.0066, val_loss: 0.0757, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/46.06/0.69/0.30/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 196 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 196, time: 5.30/119.57, train_loss: 0.0067, val_loss: 0.0736, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/46.26/0.68/0.29/0.52, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 197 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 197, time: 5.02/123.59, train_loss: 0.0067, val_loss: 0.0745, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/44.79/0.67/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 198 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 198, time: 5.54/119.90, train_loss: 0.0069, val_loss: 0.0771, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.29/0.63/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 199 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 199, time: 5.09/118.72, train_loss: 0.0068, val_loss: 0.0729, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/37.78/0.52/0.28/0.54, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 200 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 200, time: 5.13/118.02, train_loss: 0.0066, val_loss: 0.0731, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/37.35/0.49/0.27/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 201 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 201, time: 5.63/122.25, train_loss: 0.0068, val_loss: 0.0708, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.32/0.57/0.27/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 202 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 202, time: 5.22/122.37, train_loss: 0.0064, val_loss: 0.0724, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.96/0.60/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 203 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 203, time: 5.15/120.85, train_loss: 0.0065, val_loss: 0.0722, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.72/0.66/0.30/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 204 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 204, time: 5.27/121.58, train_loss: 0.0064, val_loss: 0.0719, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/43.97/0.56/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 205 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 205, time: 5.16/90.42, train_loss: 0.0064, val_loss: 0.0672, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/44.84/0.59/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 206 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 206, time: 4.82/123.03, train_loss: 0.0065, val_loss: 0.0646, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/44.62/0.62/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 207 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 207, time: 5.68/120.75, train_loss: 0.0068, val_loss: 0.0628, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.54/0.59/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 208 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 208, time: 5.62/124.01, train_loss: 0.0069, val_loss: 0.0755, F/AE/Dist_err/Rel_dist_err/SELD: 0.11/44.72/0.63/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 209 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 209, time: 5.37/122.16, train_loss: 0.0070, val_loss: 0.0719, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/44.43/0.60/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 210 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 210, time: 5.40/124.12, train_loss: 0.0069, val_loss: 0.0814, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.02/0.55/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 211 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 211, time: 5.44/121.38, train_loss: 0.0064, val_loss: 0.0853, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/45.80/0.66/0.29/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 212 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 212, time: 5.10/120.13, train_loss: 0.0063, val_loss: 0.0807, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/43.46/0.57/0.28/0.51, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 213 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 213, time: 5.66/121.55, train_loss: 0.0062, val_loss: 0.0723, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/43.47/0.56/0.27/0.50, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 214 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
+epoch: 214, time: 5.54/127.50, train_loss: 0.0064, val_loss: 0.0810, F/AE/Dist_err/Rel_dist_err/SELD: 0.12/46.96/0.69/0.45/0.53, best_val_epoch: 107 (0.14/37.78/0.49/0.26/0.52)
+
+[Debug] ================== Epoch 215 시작 ==================
+  -> [Debug] train_epoch 시작: 첫 번째 배치를 기다리는 중...
