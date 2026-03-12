@@ -185,4 +185,3 @@ For more information on the submission file formats [check the website](https://
 ## License
 
 This repo and its contents have the MIT License.
-ㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ
